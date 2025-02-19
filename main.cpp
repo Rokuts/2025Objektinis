@@ -1,19 +1,18 @@
-#include <iostream>
-#include <algorithm>
-#include <iomanip>
-
-using namespace std;
+#include "headers.h"
 
 struct studentas{
     string vardas, pavarde;
-    int egzas, suma = 0;
-    double n[10];
+    int egzas;
+    int n[10];
 
 };
 
 double vidurkis(studentas *s, int x){       //funkcija balui su vidurkiu skaiciavimas
-    double vidurkis;
-    vidurkis = ((double)(s->suma))/x;
+    double vidurkis=0;
+    for(int i=0; i<x;i++){
+        vidurkis += s->n[i];
+    }
+    vidurkis = vidurkis/x;
     
     return vidurkis * 0.4 + (s->egzas * 0.6);
 }
@@ -30,7 +29,7 @@ double mediana(studentas *s, int x){        //funkcija  balui su mediana skaicia
 int main()
 {
     studentas S[10];
-    int n, x, y;
+    int x, y;
 
     cout << "Kiek yra studentu (max 10)?" << endl;
     cin >> y;
@@ -51,7 +50,6 @@ int main()
         cout << "Iveskite visus sio studento tarpinius rezultatus." << endl;
         for(int j = 0; j < x; j++){
             cin >> S[i].n[j];
-            S[i].suma += S[i].n[j];
         }
 
         cout << "Koks sio studento egzamino rezultatas?" << endl;
