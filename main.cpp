@@ -4,8 +4,6 @@
 
 using namespace std;
 
-
-
 struct studentas{
     string vardas, pavarde;
     int egzas, suma = 0;
@@ -13,14 +11,14 @@ struct studentas{
 
 };
 
-double vidurkis(studentas *s, int x){
+double vidurkis(studentas *s, int x){       //funkcija balui su vidurkiu skaiciavimas
     double vidurkis;
     vidurkis = ((double)(s->suma))/x;
     
     return vidurkis * 0.4 + (s->egzas * 0.6);
 }
 
-double mediana(studentas *s, int x){
+double mediana(studentas *s, int x){        //funkcija  balui su mediana skaiciavimas
     double mediana;
     sort(&s->n[0],&s->n[x]);
     if(x%2==0)
@@ -31,7 +29,6 @@ double mediana(studentas *s, int x){
 
 int main()
 {
-
     studentas S[10];
     int n, x, y;
 
@@ -44,7 +41,7 @@ int main()
     cout << endl;
 
 
-    int ilgiausias_vardas=6, ilgiausia_pavarde=7;
+    int ilgiausias_vardas=6, ilgiausia_pavarde=7;       // vardas 6 pavarde 7, nes jeigu butu trumpesnis nei stulpelio pavadinimas kad nesusilietu;
     for(int i = 0; i < y; i++){
         cout << "Koks " << i + 1 << "-o studento vardas ir pavarde?" << endl;
         cin >> S[i].vardas >> S[i].pavarde;
