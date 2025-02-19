@@ -12,3 +12,7 @@ using std::max;
 using std::left;
 using std::setw;
 using std::vector;
+using std::numeric_limits;
+using std::streamsize;
+using std::fixed;
+using std::setprecision;
