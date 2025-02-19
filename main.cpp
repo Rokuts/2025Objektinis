@@ -3,23 +3,24 @@
 struct studentas{
     string vardas, pavarde;
     int egzas;
-    int n[10];
+    vector<int> n;
 
 };
 
-double vidurkis(studentas *s, int x){       //funkcija balui su vidurkiu skaiciavimas
+double vidurkis(studentas *s){       //funkcija balui su vidurkiu skaiciavimas
     double vidurkis=0;
-    for(int i=0; i<x;i++){
+    for(int i=0; i<s->n.size();i++){
         vidurkis += s->n[i];
     }
-    vidurkis = vidurkis/x;
+    vidurkis = vidurkis/s->n.size();
     
     return vidurkis * 0.4 + (s->egzas * 0.6);
 }
 
-double mediana(studentas *s, int x){        //funkcija  balui su mediana skaiciavimas
+double mediana(studentas *s){        //funkcija  balui su mediana skaiciavimas
     double mediana;
-    sort(&s->n[0],&s->n[x]);
+    int x=s->n.size();
+    sort(s->n.begin(),s->n.end());
     if(x%2==0)
         mediana = (s->n[x/2]+s->n[x/2-1])/2;
     else mediana = (s->n[x/2]);
@@ -28,33 +29,41 @@ double mediana(studentas *s, int x){        //funkcija  balui su mediana skaicia
 
 int main()
 {
-    studentas S[10];
-    int x, y;
-
-    cout << "Kiek yra studentu (max 10)?" << endl;
-    cin >> y;
-    cout << endl;
-
-    cout << "Kiek buvo namu darbu (max 10)?" << endl;
-    cin >> x;
-    cout << endl;
-
+    vector<studentas> S;    //visi studentai
 
     int ilgiausias_vardas=6, ilgiausia_pavarde=7;       // vardas 6 pavarde 7, nes jeigu butu trumpesnis nei stulpelio pavadinimas kad nesusilietu;
-    for(int i = 0; i < y; i++){
-        cout << "Koks " << i + 1 << "-o studento vardas ir pavarde?" << endl;
-        cin >> S[i].vardas >> S[i].pavarde;
-        ilgiausias_vardas = max(ilgiausias_vardas, (int)S[i].vardas.size());     //Vardo ilgis
-        ilgiausia_pavarde = max(ilgiausia_pavarde, (int)S[i].pavarde.size());    //Pavardes ilgis
+    
+    
+    while(true){
+        //Ivedinejame studentu vardus ir pavardes tol kol ivedamas NE.
+        //---------------------------------------------------------------------------------------------------------------------------
+        studentas s;       //vienas studentas kuri siuo metu ivedame apsirasom;
+        cout << "Iveskite " << S.size()+1 << "-o studento varda ir pavarde arba 'NE' jeigu nebera daugiau studentu." << endl;
+        cin >> s.vardas;
+        if(s.vardas=="NE")
+            break;
+        cin >> s.pavarde;
+        if(s.pavarde=="NE")
+            break;
 
-        cout << "Iveskite visus sio studento tarpinius rezultatus." << endl;
-        for(int j = 0; j < x; j++){
-            cin >> S[i].n[j];
+        ilgiausias_vardas = max(ilgiausias_vardas, (int)s.vardas.size());     //Vardo ilgis
+        ilgiausia_pavarde = max(ilgiausia_pavarde, (int)s.pavarde.size());    //Pavardes ilgis
+
+        //Ivedinejame pazymius
+        cout << "Iveskite studento namu darbu pazymius. Pabaigus juos vardyt, parasykite '-1'." << endl;
+        while(true){
+            int pazimys;
+            cin >> pazimys;
+            if(pazimys == -1)
+                break;
+            s.n.push_back(pazimys);
         }
 
         cout << "Koks sio studento egzamino rezultatas?" << endl;
-        cin >> S[i].egzas;
+        cin >> s.egzas;
         cout << endl;
+
+        S.push_back(s);     //viena studenta itrauke i studentus;
     }
 
     int t;
@@ -73,11 +82,11 @@ int main()
     }
     cout << endl;
 
-    for(int i = 0; i < y; i++){
+    for(int i = 0; i < S.size(); i++){
         if(t==0){
-            cout << left << setw(ilgiausia_pavarde + 3) << S[i].pavarde << setw(ilgiausias_vardas + 3) << S[i].vardas << setw(17) << vidurkis(&S[i],x) << endl;
+            cout << left << setw(ilgiausia_pavarde + 3) << S[i].pavarde << setw(ilgiausias_vardas + 3) << S[i].vardas << setw(17) << vidurkis(&S[i]) << endl;
         }
-        else cout << left << setw(ilgiausia_pavarde + 3) << S[i].pavarde << setw(ilgiausias_vardas + 3) << S[i].vardas << setw(17) << mediana(&S[i],x) << endl;
+        else cout << left << setw(ilgiausia_pavarde + 3) << S[i].pavarde << setw(ilgiausias_vardas + 3) << S[i].vardas << setw(17) << mediana(&S[i]) << endl;
     }
 
 
