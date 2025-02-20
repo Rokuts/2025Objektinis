@@ -1,4 +1,5 @@
 #include "headers.h"
+#include "main.h"
 
 struct studentas{
     string vardas, pavarde;
@@ -6,6 +7,11 @@ struct studentas{
     vector<int> n;
 
 };
+
+int atsitiktinis_skaicius(int min, int max) {
+    int range = max - min + 1;
+    return min + rand() % range;
+}
 
 bool ar_tik_raides(const string& zodis) {
     for (char simbolis : zodis) {
@@ -42,101 +48,176 @@ double mediana(studentas *s){        //funkcija  balui su mediana skaiciavimas
     return mediana * 0.4 + (s->egzas * 0.6);
 }
 
-int main(){
-    vector<studentas> S;    //visi studentai
 
-    int ilgiausias_vardas=6, ilgiausia_pavarde=7;       // vardas 6 pavarde 7, nes jeigu butu trumpesnis nei stulpelio pavadinimas kad nesusilietu;
-    
-    
+
+
+
+int gauti_skaiciu(string zinute, int min = 1, int max = 10, bool minus1 = false){
+    int skaicius;
+    while (true) {
+        cout << zinute <<endl;
+        cin >> skaicius;
+
+        if (cin.fail()) { 
+            cin.clear(); 
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Klaida!!! Netinkama ivestis. Bandykite dar karta"<<endl;
+        } 
+        else if (minus1 && skaicius == -1) {
+            return skaicius;
+        } 
+        else if (skaicius < min || skaicius > max){
+            cout << "Klaida!!! Iveskite skaiciu nuo " << min << " iki " << max << ". Bandykite dar karta"<<endl;
+        }    
+        else {
+            return skaicius;
+        }
+    }
+
+}
+
+void vardo_pavardes_ivedimas(vector<studentas> &S, studentas &s, int &ilgiausias_vardas, int &ilgiausia_pavarde)
+{
+    cout << "Iveskite " << S.size() + 1 << "-o studento varda ir pavarde arba 'NE' jeigu nebera daugiau studentu." << endl;
+    cin >> s.vardas;
+    while (!ar_tik_raides(s.vardas))
+    {
+        cout << "!!!Rasta klaida!!! Bandykite ivesti varda dar karta." << endl;
+        cin >> s.vardas;
+    }
+
+    if(s.vardas=="NE"){
+        s.pavarde = "NE";
+        return;
+    }
+
+    cin >> s.pavarde;
+    while (!ar_tik_raides(s.pavarde))
+    {
+        cout << "!!!Rasta klaida!!! Bandykite ivesti pavarde dar karta." << endl;
+        cin >> s.pavarde;
+    }
+
+    ilgiausias_vardas = max(ilgiausias_vardas, (int)s.vardas.size());  // Vardo ilgis
+    ilgiausia_pavarde = max(ilgiausia_pavarde, (int)s.pavarde.size()); // Pavardes ilgis
+}
+
+void ivedimas_ranka(vector<studentas> &S, int &ilgiausias_vardas, int &ilgiausia_pavarde)
+{
     while(true){
+        studentas s;     //vienas studentas kuri siuo metu ivedame apsirasom;
         //---------------------------------------------------------------------------------------------------------------------------
         //Ivedinejame studentu vardus ir pavardes tol kol ivedamas NE.
 
-        studentas s;       //vienas studentas kuri siuo metu ivedame apsirasom;
-        cout << "Iveskite " << S.size()+1 << "-o studento varda ir pavarde arba 'NE' jeigu nebera daugiau studentu." << endl;
-        cin >> s.vardas;
-
-        if(s.vardas=="NE") break;
-        if(!ar_tik_raides(s.vardas)){
-            cout<<"!!!Rasta klaida!!! Bandykite dar karta."<<endl;
-            continue;
-        }
-        
-        cin >> s.pavarde;
-        if(s.pavarde=="NE") break;
-        if(!ar_tik_raides(s.pavarde)){
-            cout<<"!!!Rasta klaida!!! Bandykite dar karta."<<endl;
-            continue;
-        }
-
-        ilgiausias_vardas = max(ilgiausias_vardas, (int)s.vardas.size());     //Vardo ilgis
-        ilgiausia_pavarde = max(ilgiausia_pavarde, (int)s.pavarde.size());    //Pavardes ilgis
+        vardo_pavardes_ivedimas(S, s, ilgiausias_vardas, ilgiausia_pavarde);
+        if(s.vardas=="NE"||s.pavarde=="NE") break;
 
         //--------------------------------------------------------------------------------------------------------------------------
         //Ivedinejame pazymius
-        cout << "Iveskite studento namu darbu pazymius. Pabaigus juos vardyt, parasykite '-1'." << endl;
         while (true) {
-            int pazimys;
-            cin >> pazimys;
-
-            if (cin.fail()) {  
-                cin.clear();  
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');  
-                cout << "!!!Klaida. Ivestas neteisingas simbolis. Iveskite skaiciu tarp 1 ir 10 arba '-1' jei norite baigti." << endl;
-                continue;  
-            }
-
+            int pazimys = gauti_skaiciu("Iveskite studento namu darbu pazymius. Pabaigus juos vardyt, parasykit '-1'.", 1, 10, true);
             if (pazimys == -1) break;
-            if (pazimys < 1 || pazimys > 10) {
-                cout << "!!!Klaida. Pazymys turi buti tarp 1 ir 10!!!" << endl;
-                continue;
-            }
-
             s.n.push_back(pazimys);
         }
-
-        while (true) {
-            cout << "Iveskite studento egzamino pazymi:" << endl;
-            cin >> s.egzas;
-
-            if (cin.fail()) {
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "!!!Klaida. Egzamino rezultatas turi buti skaicius. Bandykite dar karta." << endl;
-            } 
-            else if (s.egzas < 1 || s.egzas > 10) {
-                cout << "!!!Klaida. Egzamino pazymys turi buti tarp 1 ir 10!!!" << endl;
-            } 
-            else break;
-            
-        }
-
+        s.egzas = gauti_skaiciu("Iveskite studento egzamino pazymi:");
         S.push_back(s);     //viena studenta itrauke i studentus;
     }
+}
 
+void generuojami_pazymiai(vector<studentas> &S, int &ilgiausias_vardas, int &ilgiausia_pavarde)
+{
+    while(true){
+        studentas s;     //vienas studentas kuri siuo metu ivedame apsirasom;
+        //---------------------------------------------------------------------------------------------------------------------------
+        //Ivedinejame studentu vardus ir pavardes tol kol ivedamas NE.
+
+        vardo_pavardes_ivedimas(S, s, ilgiausias_vardas, ilgiausia_pavarde);
+        if(s.vardas=="NE"||s.pavarde=="NE") break;
+
+        //--------------------------------------------------------------------------------------------------------------------------
+        //Sugeneruojame pazymius;
+        int pazymiu_kiekis=gauti_skaiciu("Iveskite kiek pazymiu norite sugeneruoti.", 0, numeric_limits<int>::max());
+        for(int i=0; i<pazymiu_kiekis;i++){
+            s.n.push_back(atsitiktinis_skaicius(1,10));
+        }
+        s.egzas = atsitiktinis_skaicius(1,10);
+        S.push_back(s);     //viena studenta itrauke i studentus;
+    }
+}
+
+
+
+
+
+void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S)
+{
     int t;
     cout << "Jei lenteleje norite galutinio vidurkio spauskite 0, jei medianos - 1" << endl;
     cin >> t;
-    cout << endl; 
+    cout << endl;
 
-    if(t==0){
+    if (t == 0)
+    {
         cout << left << setw(ilgiausia_pavarde + 3) << "Pavarde" << setw(ilgiausias_vardas + 3) << "Vardas" << setw(17) << "Galutinis (Vid.)" << endl;
     }
-    else cout << left << setw(ilgiausia_pavarde + 3) << "Pavarde" << setw(ilgiausias_vardas + 3) << "Vardas" << setw(17) << "Galutinis (med.)" << endl;
+    else
+        cout << left << setw(ilgiausia_pavarde + 3) << "Pavarde" << setw(ilgiausias_vardas + 3) << "Vardas" << setw(17) << "Galutinis (med.)" << endl;
 
-    
-    for(int i = 0; i < (ilgiausia_pavarde+ilgiausias_vardas+6+17); i++){        //pridetu pakankamai "-", kad gerai atrodytu lentele;
-        cout<<"-";
+    for (int i = 0; i < (ilgiausia_pavarde + ilgiausias_vardas + 6 + 17); i++)
+    { // pridetu pakankamai "-", kad gerai atrodytu lentele;
+        cout << "-";
     }
     cout << endl;
 
-    for(int i = 0; i < S.size(); i++){
-        if(t==0){
+    for (int i = 0; i < S.size(); i++)
+    {
+        if (t == 0)
+        {
             cout << left << setw(ilgiausia_pavarde + 3) << S[i].pavarde << setw(ilgiausias_vardas + 3) << S[i].vardas << setw(17) << fixed << setprecision(2) << vidurkis(&S[i]) << endl;
         }
-        else cout << left << setw(ilgiausia_pavarde + 3) << S[i].pavarde << setw(ilgiausias_vardas + 3) << S[i].vardas << setw(17) << fixed << setprecision(2)<< mediana(&S[i]) << endl;
+        else
+            cout << left << setw(ilgiausia_pavarde + 3) << S[i].pavarde << setw(ilgiausias_vardas + 3) << S[i].vardas << setw(17) << fixed << setprecision(2) << mediana(&S[i]) << endl;
     }
+}
 
+void meniu()
+{
+    cout << "Pasirinkite ivedimo rezima:" << endl;
+    cout << "1. Ivedimas ranka;" << endl;
+    cout << "2. Generuoti pazymius;" << endl;
+    cout << "3. Generuoti pazymius, vardus, pavardes;" << endl;
+    cout << "4. Baigti darba." << endl;
+}
+
+int main(){
+
+    vector<studentas> S; // visi studentai
+
+    int ilgiausias_vardas=6, ilgiausia_pavarde=7;       // vardas 6 pavarde 7, nes jeigu butu trumpesnis nei stulpelio pavadinimas kad nesusilietu;
+
+    meniu();
+    int pasirinkimas;
+    pasirinkimas = gauti_skaiciu("Iveskite norima varianta.", 1, 4);
+    switch(pasirinkimas){
+        case 1:
+            ivedimas_ranka(S, ilgiausias_vardas, ilgiausia_pavarde);
+            break; 
+        case 2:
+            generuojami_pazymiai(S, ilgiausias_vardas, ilgiausia_pavarde);
+            break;
+        case 3:
+
+            break;
+
+
+    }
+    
+    
+    
+        
+    lentele(ilgiausia_pavarde, ilgiausias_vardas, S);
 
     return 0;
 }
+
+

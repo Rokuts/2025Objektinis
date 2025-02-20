@@ -2,6 +2,8 @@
 #include <algorithm>
 #include <iomanip>
 #include <vector>
+#include <cstdlib>  //random
+#include <cctype> // darbas su simboliais
 
 using std::string;
 using std::sort;
