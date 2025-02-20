@@ -36,7 +36,7 @@ double vidurkis(studentas *s){       //funkcija balui su vidurkiu skaiciavimas
 
 double mediana(studentas *s){        //funkcija  balui su mediana skaiciavimas
     if (s->n.size() == 0) 
-        return s->egzas;  
+        return s->egzas*0.6;    //Jei tarpiniu pazimiu nera, tai isvedamas balas su egzamino pazimiu;
     
     double mediana;
     int x=s->n.size();
@@ -70,11 +70,11 @@ int gauti_skaiciu(string zinute, int min = 1, int max = 10, bool minus1 = false)
     int skaicius;
     
     while (true) {
-        if(!minus1)
+        if(!minus1)                 //isjungia zinuciu spauzdinima 
             cout << zinute <<endl;
         cin >> skaicius;
 
-        if (cin.fail()) { 
+        if (cin.fail()) {           //trikriname ar ivedamas skaicius
             cin.clear(); 
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Klaida!!! Netinkama ivestis. Bandykite dar karta"<<endl;
@@ -82,7 +82,7 @@ int gauti_skaiciu(string zinute, int min = 1, int max = 10, bool minus1 = false)
         else if (minus1 && skaicius == -1) {
             return skaicius;
         } 
-        else if (skaicius < min || skaicius > max){
+        else if (skaicius < min || skaicius > max){         //tikriname ar skaicius yra tinkamame intervale;
             cout << "Klaida!!! Iveskite skaiciu nuo " << min << " iki " << max << ". Bandykite dar karta"<<endl;
         }    
         else {
@@ -102,7 +102,7 @@ void vardo_pavardes_ivedimas(vector<studentas> &S, studentas &s, int &ilgiausias
         cin >> s.vardas;
     }
 
-    if(s.vardas=="NE"){
+    if(s.vardas=="NE"){         //Nebeivedinejame vardu ir pavardziu kai bent vienas yra = NE;
         s.pavarde = "NE";
         return;
     }
