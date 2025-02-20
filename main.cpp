@@ -1,5 +1,4 @@
 #include "headers.h"
-#include "main.h"
 
 struct studentas{
     string vardas, pavarde;
@@ -48,14 +47,31 @@ double mediana(studentas *s){        //funkcija  balui su mediana skaiciavimas
     return mediana * 0.4 + (s->egzas * 0.6);
 }
 
+static const vector<string> vardai = {
 
+    "Dominykas", "Deividas", "Matas", "Lukas", "Nojus",
+    "Erikas", "Danielis", "Tomas", "Mindaugas", "Edvinas",
+    "Gabrielius", "Martynas", "Mantas", "Azuolas", "Benas"
+};
 
+static const vector<string> pavardes = {
 
+    "Kazlauskas", "Petrauskas", "Jankauskas", "Antanaitis", "Baksys",
+    "Balciunas", "Baranauskas", "Bartkus", "Dambrauskas", "Gudauskas",
+    "Kavaliauskas", "Kazakevicius", "Lukauskas", "Maciulis", "Navickas",
+    "Paulauskas", "Rutkauskas", "Simkus", "Urbonas", "Valentukevicius"
+};
+
+string atsitiktine_zodis(const vector<string> &zodynas){
+    return zodynas[atsitiktinis_skaicius(0,zodynas.size()-1)];
+}
 
 int gauti_skaiciu(string zinute, int min = 1, int max = 10, bool minus1 = false){
     int skaicius;
+    
     while (true) {
-        cout << zinute <<endl;
+        if(!minus1)
+            cout << zinute <<endl;
         cin >> skaicius;
 
         if (cin.fail()) { 
@@ -114,8 +130,9 @@ void ivedimas_ranka(vector<studentas> &S, int &ilgiausias_vardas, int &ilgiausia
 
         //--------------------------------------------------------------------------------------------------------------------------
         //Ivedinejame pazymius
+        cout<<"Iveskite studento namu darbu pazymius. Pabaigus juos vardyt, parasykit '-1'."<<endl;
         while (true) {
-            int pazimys = gauti_skaiciu("Iveskite studento namu darbu pazymius. Pabaigus juos vardyt, parasykit '-1'.", 1, 10, true);
+            int pazimys = gauti_skaiciu("", 1, 10, true);
             if (pazimys == -1) break;
             s.n.push_back(pazimys);
         }
@@ -145,7 +162,31 @@ void generuojami_pazymiai(vector<studentas> &S, int &ilgiausias_vardas, int &ilg
     }
 }
 
+void generuojama_viskas(vector<studentas> &S, int &ilgiausias_vardas, int &ilgiausia_pavarde)
+{
+    int studentu_kiekis=gauti_skaiciu("Iveskite kiek studentu norite sugeneruoti.", 0, numeric_limits<int>::max());
+    int pazymiu_kiekis=gauti_skaiciu("Iveskite kiek pazymiu norite sugeneruoti.", 0, numeric_limits<int>::max());
+    for(int i=0;i<studentu_kiekis;i++){
+        studentas s;     //vienas studentas kuri siuo metu ivedame apsirasom;
+        //---------------------------------------------------------------------------------------------------------------------------
+        //Sugeneruojami vardai ir pavardes;
+        
+        s.vardas=atsitiktine_zodis(vardai);
+        s.pavarde=atsitiktine_zodis(pavardes);
 
+        ilgiausias_vardas = max(ilgiausias_vardas, (int)s.vardas.size());  // Vardo ilgis
+        ilgiausia_pavarde = max(ilgiausia_pavarde, (int)s.pavarde.size()); // Pavardes ilgis
+
+        //--------------------------------------------------------------------------------------------------------------------------
+        //Sugeneruojame pazymius;
+        for(int i=0; i<pazymiu_kiekis;i++){
+            s.n.push_back(atsitiktinis_skaicius(1,10));
+        }
+        //Sugeneruojam egzo pazymi;
+        s.egzas = atsitiktinis_skaicius(1,10);
+        S.push_back(s);     //viena studenta itrauke i studentus;
+    }
+}
 
 
 
@@ -190,33 +231,33 @@ void meniu()
 }
 
 int main(){
+    srand (time(NULL));     //padaro jog generuojami dyd=iai visada butu skirtingi;
 
     vector<studentas> S; // visi studentai
 
     int ilgiausias_vardas=6, ilgiausia_pavarde=7;       // vardas 6 pavarde 7, nes jeigu butu trumpesnis nei stulpelio pavadinimas kad nesusilietu;
 
-    meniu();
-    int pasirinkimas;
-    pasirinkimas = gauti_skaiciu("Iveskite norima varianta.", 1, 4);
-    switch(pasirinkimas){
-        case 1:
-            ivedimas_ranka(S, ilgiausias_vardas, ilgiausia_pavarde);
-            break; 
-        case 2:
-            generuojami_pazymiai(S, ilgiausias_vardas, ilgiausia_pavarde);
-            break;
-        case 3:
-
-            break;
-
+    while(true){
+        meniu();
+        int pasirinkimas;
+        pasirinkimas = gauti_skaiciu("Iveskite norima varianta.", 1, 4);
+        switch(pasirinkimas){
+            case 1:
+                ivedimas_ranka(S, ilgiausias_vardas, ilgiausia_pavarde);
+                break; 
+            case 2:
+                generuojami_pazymiai(S, ilgiausias_vardas, ilgiausia_pavarde);
+                break;
+            case 3:
+                generuojama_viskas(S, ilgiausias_vardas, ilgiausia_pavarde);
+                break;
+            case 4:
+                lentele(ilgiausia_pavarde, ilgiausias_vardas, S);
+                return 0;
+        }
 
     }
     
-    
-    
-        
-    lentele(ilgiausia_pavarde, ilgiausias_vardas, S);
-
     return 0;
 }
 
