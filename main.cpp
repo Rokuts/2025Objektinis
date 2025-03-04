@@ -190,7 +190,9 @@ void generuojama_viskas(vector<studentas> &S, int &ilgiausias_vardas, int &ilgia
 
 
 
-void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S)
+
+
+void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S, ostream &isvestis)
 {
     int t;
     cout << "Jei lenteleje norite galutinio vidurkio spauskite 0, jei medianos - 1" << endl;
@@ -199,25 +201,25 @@ void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S)
 
     if (t == 0)
     {
-        cout << left << setw(ilgiausia_pavarde + 3) << "Pavarde" << setw(ilgiausias_vardas + 3) << "Vardas" << setw(17) << "Galutinis (Vid.)" << endl;
+        isvestis << left << setw(ilgiausia_pavarde + 3) << "Pavarde" << setw(ilgiausias_vardas + 3) << "Vardas" << setw(17) << "Galutinis (Vid.)" << endl;
     }
     else
-        cout << left << setw(ilgiausia_pavarde + 3) << "Pavarde" << setw(ilgiausias_vardas + 3) << "Vardas" << setw(17) << "Galutinis (med.)" << endl;
+        isvestis << left << setw(ilgiausia_pavarde + 3) << "Pavarde" << setw(ilgiausias_vardas + 3) << "Vardas" << setw(17) << "Galutinis (med.)" << endl;
 
     for (int i = 0; i < (ilgiausia_pavarde + ilgiausias_vardas + 6 + 17); i++)
     { // pridetu pakankamai "-", kad gerai atrodytu lentele;
-        cout << "-";
+        isvestis << "-";
     }
-    cout << endl;
+    isvestis << endl;
 
     for (int i = 0; i < S.size(); i++)
     {
         if (t == 0)
         {
-            cout << left << setw(ilgiausia_pavarde + 3) << S[i].pavarde << setw(ilgiausias_vardas + 3) << S[i].vardas << setw(17) << fixed << setprecision(2) << vidurkis(&S[i]) << endl;
+            isvestis << left << setw(ilgiausia_pavarde + 3) << S[i].pavarde << setw(ilgiausias_vardas + 3) << S[i].vardas << setw(17) << fixed << setprecision(2) << vidurkis(&S[i]) << endl;
         }
         else
-            cout << left << setw(ilgiausia_pavarde + 3) << S[i].pavarde << setw(ilgiausias_vardas + 3) << S[i].vardas << setw(17) << fixed << setprecision(2) << mediana(&S[i]) << endl;
+            isvestis << left << setw(ilgiausia_pavarde + 3) << S[i].pavarde << setw(ilgiausias_vardas + 3) << S[i].vardas << setw(17) << fixed << setprecision(2) << mediana(&S[i]) << endl;
     }
 }
 
@@ -227,7 +229,9 @@ void meniu()
     cout << "1. Ivedimas ranka;" << endl;
     cout << "2. Generuoti pazymius;" << endl;
     cout << "3. Generuoti pazymius, vardus, pavardes;" << endl;
-    cout << "4. Baigti darba." << endl;
+    cout << "4. Duomenis paimti is failo;" << endl;
+    cout << "5. Isvesti duomenis i ekrana ir baigti darba" << endl;
+    cout << "6. Isvesti duomenis i faila ir baigti darba" << endl;
 }
 
 int main(){
@@ -240,7 +244,7 @@ int main(){
     while(true){
         meniu();
         int pasirinkimas;
-        pasirinkimas = gauti_skaiciu("Iveskite norima varianta.", 1, 4);
+        pasirinkimas = gauti_skaiciu("Iveskite norima varianta.", 1, 6);
         switch(pasirinkimas){
             case 1:
                 ivedimas_ranka(S, ilgiausias_vardas, ilgiausia_pavarde);
@@ -251,8 +255,12 @@ int main(){
             case 3:
                 generuojama_viskas(S, ilgiausias_vardas, ilgiausia_pavarde);
                 break;
-            case 4:
-                lentele(ilgiausia_pavarde, ilgiausias_vardas, S);
+            case 4: //paimti is failo
+                break;
+            case 5: //isvesti i ekrana
+                lentele(ilgiausia_pavarde, ilgiausias_vardas, S, cout);
+                return 0;
+            case 6: //isvesti i faila
                 return 0;
         }
 
