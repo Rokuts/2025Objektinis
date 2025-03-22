@@ -47,6 +47,7 @@ double mediana(studentas *s){        //funkcija  balui su mediana skaiciavimas
     return mediana * 0.4 + (s->egzas * 0.6);
 }
 
+
 static const vector<string> vardai = {
 
     "Dominykas", "Deividas", "Matas", "Lukas", "Nojus",
@@ -189,9 +190,6 @@ void generuojama_viskas(vector<studentas> &S, int &ilgiausias_vardas, int &ilgia
 }
 
 
-
-
-
 void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S, ostream &isvestis)
 {
     int t;
@@ -222,6 +220,87 @@ void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S,
             isvestis << left << setw(ilgiausia_pavarde + 3) << S[i].pavarde << setw(ilgiausias_vardas + 3) << S[i].vardas << setw(17) << fixed << setprecision(2) << mediana(&S[i]) << endl;
     }
 }
+
+void skaitymas_is_failo(vector<studentas> &S, int &ilgiausias_vardas, int &ilgiausia_pavarde){
+    path failas;
+    while(true){
+        cout<<"Is kokio failo norite isvesti duomenis?"<<endl;
+        cin>>failas;
+       
+        if(!fs_exists(failas)){
+            cout<<"Toksai failas neegzistuoja, iveskite kita pavadinima;"<<endl;
+            continue;
+        }
+        break;
+    }
+    ifstream ivestis(failas);
+    if(!ivestis){
+        cout<<"Nepavyko atidaryti failo"<<endl;
+        return;
+    }
+    
+    string eilute;
+
+    getline(ivestis,eilute);
+
+    while (getline(ivestis, eilute)) {
+        stringstream iss(eilute);
+        studentas naujas;
+        int paz;
+        
+        if (!(iss >> naujas.vardas >> naujas.pavarde)) {
+            cout << "Netinkamas duomenų formatas eilutėje: " << eilute << endl;
+            continue;
+        }
+
+        
+        while (iss >> paz) {
+            naujas.n.push_back(paz);
+        }
+
+        // Bent vienas pazymys yra
+        if (!naujas.n.empty()) {
+            naujas.egzas = naujas.n.back();  // Last value is the exam
+            naujas.n.pop_back();  // Remove exam from grades
+        } else {
+            naujas.egzas = 0;  // Default exam grade if none found
+        }
+
+        // Track longest name lengths
+        ilgiausias_vardas = max(ilgiausias_vardas, (int)naujas.vardas.length());
+        ilgiausia_pavarde = max(ilgiausia_pavarde, (int)naujas.pavarde.length());
+
+        // Add student to the list
+        S.push_back(naujas);
+    }
+
+    ivestis.close();
+    cout << "Duomenys sėkmingai nuskaityti!\n";
+
+
+}
+
+void isvedimas_i_faila(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S){
+    
+    path failas;
+    while(true){
+       
+        cout<<"I koki faila norite isvesti duomenis?"<<endl;
+        cin>>failas;
+       
+        if(fs_exists(failas)){
+            cout<<"Toksai failas jau egzistuoja, iveskite kita pavadinima;";
+            continue;
+        }
+        break;
+    }
+    
+    ofstream isvestis(failas);
+    lentele(ilgiausia_pavarde,ilgiausias_vardas,S,isvestis);
+    isvestis.close();
+
+}
+
 
 void meniu()
 {
@@ -255,12 +334,14 @@ int main(){
             case 3:
                 generuojama_viskas(S, ilgiausias_vardas, ilgiausia_pavarde);
                 break;
-            case 4: //paimti is failo
+            case 4: 
+                skaitymas_is_failo(S, ilgiausias_vardas, ilgiausia_pavarde);
                 break;
             case 5: //isvesti i ekrana
                 lentele(ilgiausia_pavarde, ilgiausias_vardas, S, cout);
                 return 0;
             case 6: //isvesti i faila
+                isvedimas_i_faila(ilgiausia_pavarde,ilgiausias_vardas,S);
                 return 0;
         }
 
