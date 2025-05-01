@@ -315,6 +315,26 @@ void isvedimas_i_faila(int ilgiausia_pavarde, int ilgiausias_vardas, vector<stud
 
 }
 
+
+//palyginimo funkcijos:
+
+bool compareByVidurkis(apskaiciuotas_studentas &a, apskaiciuotas_studentas &b) {
+    return a.vidurkis < b.vidurkis;
+}
+
+bool compareByMediana(apskaiciuotas_studentas &a, apskaiciuotas_studentas &b) {
+    return a.mediana < b.mediana;
+}
+
+bool compareByVardas(apskaiciuotas_studentas &a, apskaiciuotas_studentas &b) {
+    return a.studentas.vardas < b.studentas.vardas;
+}
+
+bool compareByPavarde(apskaiciuotas_studentas &a, apskaiciuotas_studentas &b) {
+    return a.studentas.pavarde < b.studentas.pavarde;
+}
+
+
 void kaip_rusiuojam_ir_rusiuojam(vector<apskaiciuotas_studentas> &S){
     int pasirinkimas;
     cout << "Pasirinkite rikiavimo buda:"<<endl;
@@ -324,24 +344,23 @@ void kaip_rusiuojam_ir_rusiuojam(vector<apskaiciuotas_studentas> &S){
     cout << "4 - Pagal mediana"<<endl;
     cin >> pasirinkimas;
 
-}
+    switch(pasirinkimas){
+        case 1:
+            sort(S.begin(), S.end(), compareByVardas);
+            break;
+        case 2:
+            sort(S.begin(), S.end(), compareByPavarde);
+            break;
+        case 3: 
+            sort(S.begin(), S.end(), compareByVidurkis);
+            break;
+        case 4:
+            sort(S.begin(), S.end(), compareByMediana);
+            break;
+        default:
+            cout << "Neteisingas pasirinkimas, lentele nebus rikiuojama." << endl;
+    }
 
-//palyginimo funkcijos:
-
-bool compareByVidurkis(const studentas &a, const studentas &b) {
-    return vidurkis(&a) < vidurkis(&b);
-}
-
-bool compareByMediana(const studentas &a, const studentas &b) {
-    return mediana(&a) < mediana(&b);
-}
-
-bool compareByVardas(const studentas &a, const studentas &b) {
-    return a.vardas < b.vardas;
-}
-
-bool compareByPavarde(const studentas &a, const studentas &b) {
-    return a.pavarde < b.pavarde;
 }
 
 
