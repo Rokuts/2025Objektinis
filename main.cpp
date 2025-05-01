@@ -6,6 +6,11 @@ struct studentas{
     vector<int> n;
 
 };
+struct apskaiciuotas_studentas{
+    studentas studentas;
+    double vidurkis;
+    double mediana;
+};
 
 int atsitiktinis_skaicius(int min, int max) {
     int range = max - min + 1;
@@ -47,6 +52,14 @@ double mediana(studentas *s){        //funkcija  balui su mediana skaiciavimas
     return mediana * 0.4 + (s->egzas * 0.6);
 }
 
+apskaiciuotas_studentas apskaiciuoti_stud(studentas stud){
+    apskaiciuotas_studentas S;
+    S.studentas = stud;
+    S.vidurkis = vidurkis(&stud);
+    S.mediana = mediana(&stud);
+    return S;
+    
+}
 
 static const vector<string> vardai = {
 
@@ -190,7 +203,7 @@ void generuojama_viskas(vector<studentas> &S, int &ilgiausias_vardas, int &ilgia
 }
 
 
-void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S, ostream &isvestis)
+void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<apskaiciuotas_studentas> &S, ostream &isvestis)
 {
     int t;
     cout << "Jei lenteleje norite galutinio vidurkio spauskite 0, jei medianos - 1" << endl;
@@ -214,10 +227,10 @@ void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S,
     {
         if (t == 0)
         {
-            isvestis << left << setw(ilgiausia_pavarde + 3) << S[i].pavarde << setw(ilgiausias_vardas + 3) << S[i].vardas << setw(17) << fixed << setprecision(2) << vidurkis(&S[i]) << endl;
+            isvestis << left << setw(ilgiausia_pavarde + 3) << S[i].studentas.pavarde << setw(ilgiausias_vardas + 3) << S[i].studentas.vardas << setw(17) << fixed << setprecision(2) << S[i].vidurkis << endl;
         }
         else
-            isvestis << left << setw(ilgiausia_pavarde + 3) << S[i].pavarde << setw(ilgiausias_vardas + 3) << S[i].vardas << setw(17) << fixed << setprecision(2) << mediana(&S[i]) << endl;
+            isvestis << left << setw(ilgiausia_pavarde + 3) << S[i].studentas.pavarde << setw(ilgiausias_vardas + 3) << S[i].studentas.vardas << setw(17) << fixed << setprecision(2) << S[i].mediana << endl;
     }
 }
 
@@ -289,16 +302,46 @@ void isvedimas_i_faila(int ilgiausia_pavarde, int ilgiausias_vardas, vector<stud
         cin>>failas;
        
         if(fs_exists(failas)){
-            cout<<"Toksai failas jau egzistuoja, iveskite kita pavadinima;";
+            cout<<"Toksai failas jau egzistuoja, iveskite kita pavadinima;"<<endl;
             continue;
         }
         break;
     }
+
     
     ofstream isvestis(failas);
     lentele(ilgiausia_pavarde,ilgiausias_vardas,S,isvestis);
     isvestis.close();
 
+}
+
+void kaip_rusiuojam_ir_rusiuojam(vector<apskaiciuotas_studentas> &S){
+    int pasirinkimas;
+    cout << "Pasirinkite rikiavimo buda:"<<endl;
+    cout << "1 - Pagal varda"<<endl;
+    cout << "2 - Pagal pavarde"<<endl;
+    cout << "3 - Pagal vidurki"<<endl;
+    cout << "4 - Pagal mediana"<<endl;
+    cin >> pasirinkimas;
+
+}
+
+//palyginimo funkcijos:
+
+bool compareByVidurkis(const studentas &a, const studentas &b) {
+    return vidurkis(&a) < vidurkis(&b);
+}
+
+bool compareByMediana(const studentas &a, const studentas &b) {
+    return mediana(&a) < mediana(&b);
+}
+
+bool compareByVardas(const studentas &a, const studentas &b) {
+    return a.vardas < b.vardas;
+}
+
+bool compareByPavarde(const studentas &a, const studentas &b) {
+    return a.pavarde < b.pavarde;
 }
 
 
