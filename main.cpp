@@ -52,6 +52,7 @@ double mediana(studentas *s){        //funkcija  balui su mediana skaiciavimas
     return mediana * 0.4 + (s->egzas * 0.6);
 }
 
+//Konvertuoja studenta i apskaiciuota studenta
 apskaiciuotas_studentas apskaiciuoti_stud(studentas stud){
     apskaiciuotas_studentas S;
     S.studentas = stud;
@@ -293,37 +294,15 @@ void skaitymas_is_failo(vector<studentas> &S, int &ilgiausias_vardas, int &ilgia
 
 }
 
-void isvedimas_i_faila(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S){
-    
-    path failas;
-    while(true){
-       
-        cout<<"I koki faila norite isvesti duomenis?"<<endl;
-        cin>>failas;
-       
-        if(fs_exists(failas)){
-            cout<<"Toksai failas jau egzistuoja, iveskite kita pavadinima;"<<endl;
-            continue;
-        }
-        break;
-    }
-
-    
-    ofstream isvestis(failas);
-    lentele(ilgiausia_pavarde,ilgiausias_vardas,S,isvestis);
-    isvestis.close();
-
-}
-
 
 //palyginimo funkcijos:
 
 bool compareByVidurkis(apskaiciuotas_studentas &a, apskaiciuotas_studentas &b) {
-    return a.vidurkis < b.vidurkis;
+    return a.vidurkis > b.vidurkis;
 }
 
 bool compareByMediana(apskaiciuotas_studentas &a, apskaiciuotas_studentas &b) {
-    return a.mediana < b.mediana;
+    return a.mediana > b.mediana;
 }
 
 bool compareByVardas(apskaiciuotas_studentas &a, apskaiciuotas_studentas &b) {
@@ -344,6 +323,13 @@ void kaip_rusiuojam_ir_rusiuojam(vector<apskaiciuotas_studentas> &S){
     cout << "4 - Pagal mediana"<<endl;
     cin >> pasirinkimas;
 
+    while(true){
+        if(pasirinkimas<1||pasirinkimas>4){
+            cout << "Neteisingas pasirinkimas, bandykite dar karta."<<endl;
+            cin >> pasirinkimas;
+        }else break;
+    }
+
     switch(pasirinkimas){
         case 1:
             sort(S.begin(), S.end(), compareByVardas);
@@ -357,12 +343,48 @@ void kaip_rusiuojam_ir_rusiuojam(vector<apskaiciuotas_studentas> &S){
         case 4:
             sort(S.begin(), S.end(), compareByMediana);
             break;
-        default:
-            cout << "Neteisingas pasirinkimas, lentele nebus rikiuojama." << endl;
     }
 
 }
 
+void isvedimas_i_ekrana(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S){
+    vector<apskaiciuotas_studentas> A_S;
+    A_S.reserve(S.size());
+    for(const auto &s: S){
+        A_S.push_back(apskaiciuoti_stud(s));
+    }
+    kaip_rusiuojam_ir_rusiuojam(A_S);
+    lentele(ilgiausia_pavarde, ilgiausias_vardas, A_S, cout);
+}
+
+
+void isvedimas_i_faila(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S){
+    
+    path failas;
+    while(true){
+       
+        cout<<"I koki faila norite isvesti duomenis?"<<endl;
+        cin>>failas;
+       
+        if(fs_exists(failas)){
+            cout<<"Toksai failas jau egzistuoja, iveskite kita pavadinima;"<<endl;
+            continue;
+        }
+        break;
+    }
+
+    
+    ofstream isvestis(failas);
+    vector<apskaiciuotas_studentas> A_S;
+    A_S.reserve(S.size());
+    for(const auto &s: S){
+        A_S.push_back(apskaiciuoti_stud(s));
+    }
+    kaip_rusiuojam_ir_rusiuojam(A_S);
+    lentele(ilgiausia_pavarde,ilgiausias_vardas,A_S,isvestis);
+    isvestis.close();
+
+}
 
 void meniu()
 {
@@ -376,8 +398,8 @@ void meniu()
 }
 
 int main(){
-    srand (time(NULL));     //padaro jog generuojami dyd=iai visada butu skirtingi;
-
+    srand (time(NULL));     //padaro jog generuojami atsitiktiniai skaiciai butu skirtingi kiekviena karta;
+    
     vector<studentas> S; // visi studentai
 
     int ilgiausias_vardas=6, ilgiausia_pavarde=7;       // vardas 6 pavarde 7, nes jeigu butu trumpesnis nei stulpelio pavadinimas kad nesusilietu;
@@ -400,7 +422,7 @@ int main(){
                 skaitymas_is_failo(S, ilgiausias_vardas, ilgiausia_pavarde);
                 break;
             case 5: //isvesti i ekrana
-                lentele(ilgiausia_pavarde, ilgiausias_vardas, S, cout);
+                isvedimas_i_ekrana(ilgiausia_pavarde, ilgiausias_vardas, S);
                 return 0;
             case 6: //isvesti i faila
                 isvedimas_i_faila(ilgiausia_pavarde,ilgiausias_vardas,S);
