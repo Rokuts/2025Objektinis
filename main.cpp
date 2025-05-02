@@ -237,19 +237,17 @@ void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<apskaiciuotas_
 
 void skaitymas_is_failo(vector<studentas> &S, int &ilgiausias_vardas, int &ilgiausia_pavarde){
     path failas;
-    while(true){
-        cout<<"Is kokio failo norite isvesti duomenis?"<<endl;
-        cin>>failas;
-       
-        if(!fs_exists(failas)){
-            cout<<"Toksai failas neegzistuoja, iveskite kita pavadinima;"<<endl;
-            continue;
-        }
-        break;
-    }
-    ifstream ivestis(failas);
-    if(!ivestis){
-        cout<<"Nepavyko atidaryti failo"<<endl;
+    
+    cout<<"Is kokio failo norite isvesti duomenis?"<<endl;
+    cin>>failas;
+    
+    ifstream ivestis;
+
+    ivestis.exceptions(ifstream::failbit | ifstream::badbit); // Ijungia exceptions failo atidarymui
+    try {
+        ivestis.open(failas);
+    } catch (const std::ifstream::failure& e) {
+        cout << "Toksai failas nerastas!!!"<< endl;
         return;
     }
     
