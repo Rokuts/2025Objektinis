@@ -250,9 +250,9 @@ void skaitymas_is_failo(vector<studentas> &S, int &ilgiausias_vardas, int &ilgia
         cout << "Toksai failas nerastas!!!"<< endl;
         return;
     }
+    ivestis.exceptions(0); // Isjungia exceptions failo atidarymui
     
     string eilute;
-
     getline(ivestis,eilute);
 
     while (getline(ivestis, eilute)) {
@@ -287,7 +287,7 @@ void skaitymas_is_failo(vector<studentas> &S, int &ilgiausias_vardas, int &ilgia
     }
 
     ivestis.close();
-    cout << "Duomenys sėkmingai nuskaityti!\n";
+    cout << "Duomenys sekmingai nuskaityti!"<<endl;;
 
 
 }
