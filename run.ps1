@@ -6,7 +6,8 @@ Write-Host " Compiling main.cpp..." -ForegroundColor Cyan
 & "C:\Program Files\LLVM\bin\clang++.exe" -std=c++20 -fcolor-diagnostics -fansi-escape-codes -g -o "main.exe" `
     "main.cpp" `
     "studentas.cpp" `
-    "apskaiciuotas_studentas.cpp"
+    "apskaiciuotas_studentas.cpp" `
+    "pagalbines.cpp"
 
 # Check if compilation succeeded
 if ($LASTEXITCODE -eq 0) {

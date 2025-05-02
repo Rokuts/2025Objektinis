@@ -5,7 +5,7 @@
 int atsitiktinis_skaicius(int min, int max);
 bool ar_tik_raides(const string& zodis);
 string atsitiktine_zodis(const vector<string> &zodynas);
-int gauti_skaiciu(string zinute, int min, int max, bool minus1);
+int gauti_skaiciu(string zinute, int min = 1, int max = 10, bool minus1 = false);
 
 static const vector<string> vardai = {
 
