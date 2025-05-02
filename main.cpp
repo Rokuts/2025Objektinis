@@ -1,11 +1,8 @@
 #include "headers.h"
 #include "studentas.h"
+#include "apskaiciuotas_studentas.h"
 
-struct apskaiciuotas_studentas{
-    studentas studentas;
-    double vidurkis;
-    double mediana;
-};
+
 
 int atsitiktinis_skaicius(int min, int max) {
     int range = max - min + 1;
