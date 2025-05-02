@@ -3,7 +3,7 @@ Set-Location -Path "C:\Users\Roko PC\Desktop\Objektinis"
 
 # Compile the program using Clang++
 Write-Host " Compiling main.cpp..." -ForegroundColor Cyan
-& "C:\Program Files\LLVM\bin\clang++.exe" -std=c++20 -fcolor-diagnostics -fansi-escape-codes -g "main.cpp" -o "main.exe"
+& "C:\Program Files\LLVM\bin\clang++.exe" -std=c++20 -fcolor-diagnostics -fansi-escape-codes -g -o "main.exe" "main.cpp" "studentas.cpp"
 
 # Check if compilation succeeded
 if ($LASTEXITCODE -eq 0) {
