@@ -2,8 +2,7 @@
 #include "studentas.h"
 #include "apskaiciuotas_studentas.h"
 #include "pagalbines.h"
-
-
+#include "ivedimas.h"
 
 void vardo_pavardes_ivedimas(vector<studentas> &S, studentas &s, int &ilgiausias_vardas, int &ilgiausia_pavarde)
 {
