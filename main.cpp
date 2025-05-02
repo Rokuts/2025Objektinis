@@ -1,6 +1,7 @@
 #include "headers.h"
 #include "studentas.h"
 #include "apskaiciuotas_studentas.h"
+#include "pagalbines.h"
 
 
 
@@ -17,27 +18,6 @@ bool ar_tik_raides(const string& zodis) {
     }
     return true;
 }
-
-
-
-
-
-
-
-static const vector<string> vardai = {
-
-    "Dominykas", "Deividas", "Matas", "Lukas", "Nojus",
-    "Erikas", "Danielis", "Tomas", "Mindaugas", "Edvinas",
-    "Gabrielius", "Martynas", "Mantas", "Azuolas", "Benas"
-};
-
-static const vector<string> pavardes = {
-
-    "Kazlauskas", "Petrauskas", "Jankauskas", "Antanaitis", "Baksys",
-    "Balciunas", "Baranauskas", "Bartkus", "Dambrauskas", "Gudauskas",
-    "Kavaliauskas", "Kazakevicius", "Lukauskas", "Maciulis", "Navickas",
-    "Paulauskas", "Rutkauskas", "Simkus", "Urbonas", "Valentukevicius"
-};
 
 string atsitiktine_zodis(const vector<string> &zodynas){
     return zodynas[atsitiktinis_skaicius(0,zodynas.size()-1)];
