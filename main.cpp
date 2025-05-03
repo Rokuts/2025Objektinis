@@ -3,6 +3,9 @@
 #include "apskaiciuotas_studentas.h"
 #include "pagalbines.h"
 #include "ivedimas.h"
+#include "isvedimas.h"
+#include "rusiavimas.h"
+
 
 
 void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<apskaiciuotas_studentas> &S, ostream &isvestis)
