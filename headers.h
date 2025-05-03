@@ -35,3 +35,5 @@ inline bool fs_exists(const std::filesystem::path& p) {
 }
 
 using std::ofstream;
+
+void meniu();
