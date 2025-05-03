@@ -8,7 +8,8 @@ Write-Host " Compiling main.cpp..." -ForegroundColor Cyan
     "studentas.cpp" `
     "apskaiciuotas_studentas.cpp" `
     "pagalbines.cpp" `
-    "ivedimas.cpp"
+    "ivedimas.cpp" `
+    "rusiavimas.cpp"
 
 # Check if compilation succeeded
 if ($LASTEXITCODE -eq 0) {
