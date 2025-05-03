@@ -1,0 +1,71 @@
+#include "isvedimas.h"
+#include "rusiavimas.h"
+
+void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<apskaiciuotas_studentas> &S, ostream &isvestis)
+{
+    int t;
+    cout << "Jei lenteleje norite galutinio vidurkio spauskite 0, jei medianos - 1" << endl;
+    cin >> t;
+    cout << endl;
+
+    if (t == 0)
+    {
+        isvestis << left << setw(ilgiausia_pavarde + 3) << "Pavarde" << setw(ilgiausias_vardas + 3) << "Vardas" << setw(17) << "Galutinis (Vid.)" << endl;
+    }
+    else
+        isvestis << left << setw(ilgiausia_pavarde + 3) << "Pavarde" << setw(ilgiausias_vardas + 3) << "Vardas" << setw(17) << "Galutinis (med.)" << endl;
+
+    for (int i = 0; i < (ilgiausia_pavarde + ilgiausias_vardas + 6 + 17); i++)
+    { // pridetu pakankamai "-", kad gerai atrodytu lentele;
+        isvestis << "-";
+    }
+    isvestis << endl;
+
+    for (int i = 0; i < S.size(); i++)
+    {
+        if (t == 0)
+        {
+            isvestis << left << setw(ilgiausia_pavarde + 3) << S[i].studentas.pavarde << setw(ilgiausias_vardas + 3) << S[i].studentas.vardas << setw(17) << fixed << setprecision(2) << S[i].vidurkis << endl;
+        }
+        else
+            isvestis << left << setw(ilgiausia_pavarde + 3) << S[i].studentas.pavarde << setw(ilgiausias_vardas + 3) << S[i].studentas.vardas << setw(17) << fixed << setprecision(2) << S[i].mediana << endl;
+    }
+}
+
+void isvedimas_i_ekrana(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S){
+    vector<apskaiciuotas_studentas> A_S;
+    A_S.reserve(S.size());
+    for(const auto &s: S){
+        A_S.push_back(apskaiciuoti_stud(s));
+    }
+    kaip_rusiuojam_ir_rusiuojam(A_S);
+    lentele(ilgiausia_pavarde, ilgiausias_vardas, A_S, cout);
+}
+
+void isvedimas_i_faila(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S){
+    
+    path failas;
+    while(true){
+       
+        cout<<"I koki faila norite isvesti duomenis?"<<endl;
+        cin>>failas;
+       
+        if(fs_exists(failas)){
+            cout<<"Toksai failas jau egzistuoja, iveskite kita pavadinima;"<<endl;
+            continue;
+        }
+        break;
+    }
+
+    
+    ofstream isvestis(failas);
+    vector<apskaiciuotas_studentas> A_S;
+    A_S.reserve(S.size());
+    for(const auto &s: S){
+        A_S.push_back(apskaiciuoti_stud(s));
+    }
+    kaip_rusiuojam_ir_rusiuojam(A_S);
+    lentele(ilgiausia_pavarde,ilgiausias_vardas,A_S,isvestis);
+    isvestis.close();
+
+}
