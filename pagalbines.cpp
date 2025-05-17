@@ -43,3 +43,53 @@ int gauti_skaiciu(string zinute, int min, int max, bool minus1){
     }
 
 }
+
+void generuoti_faila()
+{
+    path failas;
+    while(true){
+       
+        cout<<"Kaip norite pavadinti sugeneruota faila?"<<endl;
+        cin>>failas;
+       
+        if(fs_exists(failas)){
+            cout<<"Toksai failas jau egzistuoja, iveskite kita pavadinima;"<<endl;
+            continue;
+        }
+        break;
+    }
+
+    int studentu_kiekis=gauti_skaiciu("Iveskite kiek studentu norite sugeneruoti.", 0, numeric_limits<int>::max());
+    int pazymiu_kiekis=gauti_skaiciu("Iveskite kiek pazymiu norite sugeneruoti.", 0, numeric_limits<int>::max());
+    
+    int pavarde_w = 20, vardas_w = 15; //stulpeliu ilgiai, kad butu graziai isdestyta;
+    double studentu_sk_kiekis = log10(static_cast<double>(studentu_kiekis));    //log10 studentu skaicius, kad gauti kiek reikia vietos isvedimui;
+    int apvalintas_sk_kiekis = static_cast<int>(ceil(studentu_sk_kiekis));  //apvaliname iki sveiko skaiciaus i didesne puse(ceil);
+    pavarde_w += apvalintas_sk_kiekis; //pridedame prie pavardes stulpelio ilgio, kad tilptu studento numeris;
+    vardas_w += apvalintas_sk_kiekis; //pridedame prie vardo stulpelio ilgio, kad tilptu studento numeris;
+
+    ofstream isvestis(failas);
+    if (!isvestis) {
+        cout << "Nepavyko atidaryti failo." << endl;
+        return;
+    }
+    isvestis << left << setw(vardas_w) << "Vardas" << setw(pavarde_w) << "Pavarde";
+    for (int i = 0; i < pazymiu_kiekis; i++) {
+        isvestis << setw(5) << ("ND" + to_string(i + 1));
+    }
+    isvestis << setw(5) << "Egz." << endl;
+
+    mt19937 gen(system_clock::now().time_since_epoch().count());    //inicelizuojame RNG remiantis dabartiniu laiku as our seed.
+    uniform_int_distribution<> pazymiai_dist(1, 10);     //sukuriame RNG paskirstymas, kad gauti skaicius nuo 1 iki 10.
+
+    for (int i = 0; i < studentu_kiekis; i++) {
+        string vardas = atsitiktine_zodis(vardai);
+        string pavarde = atsitiktine_zodis(pavardes);
+        isvestis << left << setw(vardas_w) << (vardas + to_string(i + 1)) 
+                 << setw(pavarde_w) << (pavarde + to_string(i + 1));
+        for (int j = 0; j < pazymiu_kiekis; j++) {
+            isvestis << setw(5) << pazymiai_dist(gen);
+        }
+        isvestis << setw(5) << pazymiai_dist(gen) << endl;  // egzamino pazymys;
+    }
+}

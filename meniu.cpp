@@ -9,4 +9,5 @@ void meniu()
     cout << "4. Duomenis paimti is failo;" << endl;
     cout << "5. Isvesti duomenis i ekrana ir baigti darba" << endl;
     cout << "6. Isvesti duomenis i faila ir baigti darba" << endl;
+    cout << "7. Sugeneruoti faila su studentais" << endl;
 }

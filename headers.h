@@ -4,12 +4,13 @@
 #include <algorithm>
 #include <iomanip>
 #include <vector>
-#include <cstdlib>  //random
 #include <cctype> // darbas su simboliais
 #include <filesystem>
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <random>
+#include <chrono>
 
 using std::string;
 using std::sort;
@@ -29,6 +30,14 @@ using std::ifstream;
 using std::filesystem::path;
 using std::getline;
 using std::stringstream;
+using std::mt19937;
+using std::chrono::system_clock;
+using std::uniform_int_distribution;
+using std::to_string;
+using std::ceil;
+using std::log10;
+
+
 
 inline bool fs_exists(const std::filesystem::path& p) {
     return std::filesystem::exists(p);

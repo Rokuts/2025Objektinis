@@ -16,7 +16,7 @@ int main(){
     while(true){
         meniu();
         int pasirinkimas;
-        pasirinkimas = gauti_skaiciu("Iveskite norima varianta.", 1, 6);
+        pasirinkimas = gauti_skaiciu("Iveskite norima varianta.", 1, 7);
         switch(pasirinkimas){
             case 1:
                 ivedimas_ranka(S, ilgiausias_vardas, ilgiausia_pavarde);
@@ -36,6 +36,9 @@ int main(){
             case 6: //isvesti i faila
                 isvedimas_i_faila(ilgiausia_pavarde,ilgiausias_vardas,S);
                 return 0;
+            case 7: //sugeneruoti faila su studentais
+                generuoti_faila();
+                break;
         }
 
     }
