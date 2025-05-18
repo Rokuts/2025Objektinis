@@ -9,3 +9,4 @@ bool compareByVardas(apskaiciuotas_studentas &a, apskaiciuotas_studentas &b);
 bool compareByPavarde(apskaiciuotas_studentas &a, apskaiciuotas_studentas &b);
 
 void kaip_rusiuojam_ir_rusiuojam(vector<apskaiciuotas_studentas> &S);
+void skaidyti_studentus(vector<apskaiciuotas_studentas> &S, vector<const apskaiciuotas_studentas*> &vargšiukai, vector<const apskaiciuotas_studentas*> &kietiakiai, bool naudoti_vidurki);

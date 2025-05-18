@@ -46,3 +46,25 @@ void kaip_rusiuojam_ir_rusiuojam(vector<apskaiciuotas_studentas> &S){
     }
 
 }
+
+void skaidyti_studentus(vector<apskaiciuotas_studentas> &S, vector<const apskaiciuotas_studentas*> &vargšiukai, vector<const apskaiciuotas_studentas*> &kietiakiai, bool naudoti_vidurki)
+{
+    for (const auto& studentas : S) {
+        if (naudoti_vidurki) {
+            if (studentas.vidurkis < 5.0) {
+                vargšiukai.push_back(&studentas);
+            }
+            else {
+                kietiakiai.push_back(&studentas);
+            }
+        }
+        else {
+            if (studentas.mediana < 5.0) {
+                vargšiukai.push_back(&studentas);
+            }
+            else {
+                kietiakiai.push_back(&studentas);
+            }
+        }
+    }
+}
