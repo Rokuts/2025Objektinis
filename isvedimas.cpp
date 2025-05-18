@@ -98,5 +98,28 @@ void skaidymas_ir_isvedimas_i_du_failus(int ilgiausia_pavarde, int ilgiausias_va
         break;
     }
     
+    int pasirinkimas;
+    pasirinkimas = gauti_skaiciu("Studentus skirstyti pagal vidurki ar mediana? (0 - vidurki, 1 - mediana)", 0, 1);
+
+    vector<apskaiciuotas_studentas> A_S;
+    A_S.reserve(S.size());
+    for(const auto &s: S){
+        A_S.push_back(apskaiciuoti_stud(s));
+    }
+
+    vector<const apskaiciuotas_studentas*> vargsiukai;
+    vector<const apskaiciuotas_studentas*> kietiakai;
+
+    
+    skaidyti_studentus(A_S, vargsiukai, kietiakai, !pasirinkimas);
+
+    ofstream isvestis1(failas1);
+    ofstream isvestis2(failas2);
+
+    lentele(ilgiausia_pavarde, ilgiausias_vardas, vargsiukai, isvestis1);
+    lentele(ilgiausia_pavarde, ilgiausias_vardas, kietiakai, isvestis2);
+
+    isvestis1.close();
+    isvestis2.close();
 
 }
