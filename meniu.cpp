@@ -10,4 +10,5 @@ void meniu()
     cout << "5. Isvesti duomenis i ekrana ir baigti darba" << endl;
     cout << "6. Isvesti duomenis i faila ir baigti darba" << endl;
     cout << "7. Sugeneruoti faila su studentais" << endl;
+    cout << "8. Suskirstyti studentus i vargsiukus, kietiakus ir isvesti juos i du skirtingus failus" <<endl;
 }
