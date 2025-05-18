@@ -7,6 +7,7 @@ bool ar_tik_raides(const string& zodis);
 string atsitiktine_zodis(const vector<string> &zodynas);
 int gauti_skaiciu(string zinute, int min = 1, int max = 10, bool minus1 = false);
 void generuoti_faila();
+bool paklausiam_ar_rodyti_vidurki();
 
 static const vector<string> vardai = {
 

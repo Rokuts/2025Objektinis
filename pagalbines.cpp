@@ -93,3 +93,10 @@ void generuoti_faila()
         isvestis << setw(5) << pazymiai_dist(gen) << endl;  // egzamino pazymys;
     }
 }
+
+bool paklausiam_ar_rodyti_vidurki()
+{
+    int pasirinkimas;
+    pasirinkimas = gauti_skaiciu("Norite vidurkio ar medianos? (0 - vidurkis, 1 - mediana)?", 0, 1);
+    return pasirinkimas == 0;
+}

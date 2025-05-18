@@ -4,14 +4,9 @@
 #include "apskaiciuotas_studentas.h"
 
 template <typename Container, typename Getter>
-void lentele_universali(int ilgiausia_pavarde, int ilgiausias_vardas, const Container& S, ostream& isvestis, Getter get_ref)
+void lentele_universali(int ilgiausia_pavarde, int ilgiausias_vardas, const Container& S, ostream& isvestis, Getter get_ref, bool ar_rodyti_vidurki)
 {
-    int t;
-    cout << "Jei lenteleje norite galutinio vidurkio spauskite 0, jei medianos - 1" << endl;
-    cin >> t;
-    cout << endl;
-
-    if (t == 0)
+    if (ar_rodyti_vidurki)
         isvestis << left << setw(ilgiausia_pavarde + 3) << "Pavarde" << setw(ilgiausias_vardas + 3) << "Vardas" << setw(17) << "Galutinis (Vid.)" << endl;
     else
         isvestis << left << setw(ilgiausia_pavarde + 3) << "Pavarde" << setw(ilgiausias_vardas + 3) << "Vardas" << setw(17) << "Galutinis (med.)" << endl;
@@ -22,21 +17,21 @@ void lentele_universali(int ilgiausia_pavarde, int ilgiausias_vardas, const Cont
 
     for (size_t i = 0; i < S.size(); i++) {
         const auto& stud = get_ref(S[i]);
-        if (t == 0)
+        if (ar_rodyti_vidurki)
             isvestis << left << setw(ilgiausia_pavarde + 3) << stud.studentas.pavarde << setw(ilgiausias_vardas + 3) << stud.studentas.vardas << setw(17) << fixed << setprecision(2) << stud.vidurkis << endl;
         else
             isvestis << left << setw(ilgiausia_pavarde + 3) << stud.studentas.pavarde << setw(ilgiausias_vardas + 3) << stud.studentas.vardas << setw(17) << fixed << setprecision(2) << stud.mediana << endl;
     }
 }
 
-void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<apskaiciuotas_studentas> &S, ostream &isvestis)       //lentele kopijoms;
+void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<apskaiciuotas_studentas> &S, ostream &isvestis, bool ar_rodyti_vidurki)       //lentele kopijoms;
 {
-    lentele_universali(ilgiausia_pavarde, ilgiausias_vardas, S, isvestis, [](const auto& stud) { return stud; });
+    lentele_universali(ilgiausia_pavarde, ilgiausias_vardas, S, isvestis, [](const auto& stud) { return stud; }, ar_rodyti_vidurki);
 }
 
-void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<const apskaiciuotas_studentas*> &S, ostream &isvestis)    //lentele rodyklėms;
+void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<const apskaiciuotas_studentas*> &S, ostream &isvestis, bool ar_rodyti_vidurki)    //lentele rodyklėms;
 {
-    lentele_universali(ilgiausia_pavarde, ilgiausias_vardas, S, isvestis, [](const auto& stud) { return *stud; });
+    lentele_universali(ilgiausia_pavarde, ilgiausias_vardas, S, isvestis, [](const auto& stud) { return *stud; }, ar_rodyti_vidurki);
 }
 
 void isvedimas_i_ekrana(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S){
@@ -46,7 +41,7 @@ void isvedimas_i_ekrana(int ilgiausia_pavarde, int ilgiausias_vardas, vector<stu
         A_S.push_back(apskaiciuoti_stud(s));
     }
     kaip_rusiuojam_ir_rusiuojam(A_S);
-    lentele(ilgiausia_pavarde, ilgiausias_vardas, A_S, cout);
+    lentele(ilgiausia_pavarde, ilgiausias_vardas, A_S, cout, paklausiam_ar_rodyti_vidurki());
 }
 
 void isvedimas_i_faila(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S){
@@ -72,7 +67,7 @@ void isvedimas_i_faila(int ilgiausia_pavarde, int ilgiausias_vardas, vector<stud
         A_S.push_back(apskaiciuoti_stud(s));
     }
     kaip_rusiuojam_ir_rusiuojam(A_S);
-    lentele(ilgiausia_pavarde,ilgiausias_vardas,A_S,isvestis);
+    lentele(ilgiausia_pavarde,ilgiausias_vardas,A_S,isvestis, paklausiam_ar_rodyti_vidurki());
     isvestis.close();
 
 }
@@ -121,8 +116,9 @@ void skaidymas_ir_isvedimas_i_du_failus(int ilgiausia_pavarde, int ilgiausias_va
     ofstream isvestis1(failas1);
     ofstream isvestis2(failas2);
 
-    lentele(ilgiausia_pavarde, ilgiausias_vardas, vargsiukai, isvestis1);
-    lentele(ilgiausia_pavarde, ilgiausias_vardas, kietiakai, isvestis2);
+    bool ar_rodyti_vidurki = paklausiam_ar_rodyti_vidurki();
+    lentele(ilgiausia_pavarde, ilgiausias_vardas, vargsiukai, isvestis1, ar_rodyti_vidurki);
+    lentele(ilgiausia_pavarde, ilgiausias_vardas, kietiakai, isvestis2, ar_rodyti_vidurki);
 
     isvestis1.close();
     isvestis2.close();
