@@ -3,7 +3,8 @@
 #include "pagalbines.h"
 #include "apskaiciuotas_studentas.h"
 
-void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<apskaiciuotas_studentas> &S, ostream &isvestis)
+template <typename Container, typename Getter>
+void lentele_universali(int ilgiausia_pavarde, int ilgiausias_vardas, const Container& S, ostream& isvestis, Getter get_ref)
 {
     int t;
     cout << "Jei lenteleje norite galutinio vidurkio spauskite 0, jei medianos - 1" << endl;
@@ -11,27 +12,31 @@ void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<apskaiciuotas_
     cout << endl;
 
     if (t == 0)
-    {
         isvestis << left << setw(ilgiausia_pavarde + 3) << "Pavarde" << setw(ilgiausias_vardas + 3) << "Vardas" << setw(17) << "Galutinis (Vid.)" << endl;
-    }
     else
         isvestis << left << setw(ilgiausia_pavarde + 3) << "Pavarde" << setw(ilgiausias_vardas + 3) << "Vardas" << setw(17) << "Galutinis (med.)" << endl;
 
     for (int i = 0; i < (ilgiausia_pavarde + ilgiausias_vardas + 6 + 17); i++)
-    { // pridetu pakankamai "-", kad gerai atrodytu lentele;
         isvestis << "-";
-    }
     isvestis << endl;
 
-    for (int i = 0; i < S.size(); i++)
-    {
+    for (size_t i = 0; i < S.size(); i++) {
+        const auto& stud = get_ref(S[i]);
         if (t == 0)
-        {
-            isvestis << left << setw(ilgiausia_pavarde + 3) << S[i].studentas.pavarde << setw(ilgiausias_vardas + 3) << S[i].studentas.vardas << setw(17) << fixed << setprecision(2) << S[i].vidurkis << endl;
-        }
+            isvestis << left << setw(ilgiausia_pavarde + 3) << stud.studentas.pavarde << setw(ilgiausias_vardas + 3) << stud.studentas.vardas << setw(17) << fixed << setprecision(2) << stud.vidurkis << endl;
         else
-            isvestis << left << setw(ilgiausia_pavarde + 3) << S[i].studentas.pavarde << setw(ilgiausias_vardas + 3) << S[i].studentas.vardas << setw(17) << fixed << setprecision(2) << S[i].mediana << endl;
+            isvestis << left << setw(ilgiausia_pavarde + 3) << stud.studentas.pavarde << setw(ilgiausias_vardas + 3) << stud.studentas.vardas << setw(17) << fixed << setprecision(2) << stud.mediana << endl;
     }
+}
+
+void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<apskaiciuotas_studentas> &S, ostream &isvestis)       //lentele kopijoms;
+{
+    lentele_universali(ilgiausia_pavarde, ilgiausias_vardas, S, isvestis, [](const auto& stud) { return stud; });
+}
+
+void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<const apskaiciuotas_studentas*> &S, ostream &isvestis)    //lentele rodyklėms;
+{
+    lentele_universali(ilgiausia_pavarde, ilgiausias_vardas, S, isvestis, [](const auto& stud) { return *stud; });
 }
 
 void isvedimas_i_ekrana(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S){
@@ -97,7 +102,7 @@ void skaidymas_ir_isvedimas_i_du_failus(int ilgiausia_pavarde, int ilgiausias_va
         }
         break;
     }
-    
+
     int pasirinkimas;
     pasirinkimas = gauti_skaiciu("Studentus skirstyti pagal vidurki ar mediana? (0 - vidurki, 1 - mediana)", 0, 1);
 
