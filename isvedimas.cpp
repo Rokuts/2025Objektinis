@@ -61,7 +61,7 @@ void isvedimas_i_faila(int ilgiausia_pavarde, int ilgiausias_vardas, vector<stud
 
 }
 
-void skaidymas_ir_isvedimas_i_du_failus(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S)
+void skaidymas_ir_isvedimas_i_du_failus(vector<studentas> &S, int ilgiausia_pavarde, int ilgiausias_vardas)
 {
     path failas1 = ivesti_failo_pavadinima("Iveskite failo pavadinima vargsiukams:", false);
     path failas2 = ivesti_failo_pavadinima("Iveskite failo pavadinima kietiakams:", false);
@@ -69,16 +69,21 @@ void skaidymas_ir_isvedimas_i_du_failus(int ilgiausia_pavarde, int ilgiausias_va
     int pasirinkimas;
     pasirinkimas = gauti_skaiciu("Studentus skirstyti pagal vidurki ar mediana? (0 - vidurki, 1 - mediana)", 0, 1);
 
+    skaidymas_ir_isvedimas_i_du_failus_logika(S, ilgiausia_pavarde, ilgiausias_vardas, pasirinkimas, failas1, failas2);
+}
+
+void skaidymas_ir_isvedimas_i_du_failus_logika(vector<studentas> &S, int ilgiausia_pavarde, int ilgiausias_vardas, int pasirinkimas, path &failas1, path &failas2)
+{
     vector<apskaiciuotas_studentas> A_S;
     A_S.reserve(S.size());
-    for(const auto &s: S){
+    for (const auto &s : S)
+    {
         A_S.push_back(apskaiciuoti_stud(s));
     }
 
-    vector<const apskaiciuotas_studentas*> vargsiukai;
-    vector<const apskaiciuotas_studentas*> kietiakai;
+    vector<const apskaiciuotas_studentas *> vargsiukai;
+    vector<const apskaiciuotas_studentas *> kietiakai;
 
-    
     skaidyti_studentus(A_S, vargsiukai, kietiakai, !pasirinkimas);
 
     ofstream isvestis1(failas1);
@@ -90,5 +95,4 @@ void skaidymas_ir_isvedimas_i_du_failus(int ilgiausia_pavarde, int ilgiausias_va
 
     isvestis1.close();
     isvestis2.close();
-
 }

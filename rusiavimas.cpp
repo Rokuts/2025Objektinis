@@ -30,21 +30,26 @@ void kaip_rusiuojam_ir_rusiuojam(vector<apskaiciuotas_studentas> &S){
         }else break;
     }
 
-    switch(pasirinkimas){
-        case 1:
-            sort(S.begin(), S.end(), compareByVardas);
-            break;
-        case 2:
-            sort(S.begin(), S.end(), compareByPavarde);
-            break;
-        case 3: 
-            sort(S.begin(), S.end(), compareByVidurkis);
-            break;
-        case 4:
-            sort(S.begin(), S.end(), compareByMediana);
-            break;
-    }
+    sort_pagal_pasirinkima(pasirinkimas, S);
+}
 
+void sort_pagal_pasirinkima(int pasirinkimas, vector<apskaiciuotas_studentas> &S)
+{
+    switch (pasirinkimas)
+    {
+    case 1:
+        sort(S.begin(), S.end(), compareByVardas);
+        break;
+    case 2:
+        sort(S.begin(), S.end(), compareByPavarde);
+        break;
+    case 3:
+        sort(S.begin(), S.end(), compareByVidurkis);
+        break;
+    case 4:
+        sort(S.begin(), S.end(), compareByMediana);
+        break;
+    }
 }
 
 void skaidyti_studentus(vector<apskaiciuotas_studentas> &S, vector<const apskaiciuotas_studentas*> &vargšiukai, vector<const apskaiciuotas_studentas*> &kietiakiai, bool naudoti_vidurki)
@@ -68,3 +73,5 @@ void skaidyti_studentus(vector<apskaiciuotas_studentas> &S, vector<const apskaic
         }
     }
 }
+
+

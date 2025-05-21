@@ -1,6 +1,9 @@
 #pragma once
 
 #include "headers.h"
+#include "ivedimas.h"
+#include "isvedimas.h"
+#include "rusiavimas.h"
 
 int atsitiktinis_skaicius(int min, int max);
 bool ar_tik_raides(const string& zodis);
@@ -11,6 +14,8 @@ void generuoti_faila_logika(const path& failas, int studentu_kiekis, int pazymiu
 path ivesti_failo_pavadinima(const string& uzklausa, bool turi_egzistuoti);
 void generuoti_faila();
 bool paklausiam_ar_rodyti_vidurki();
+void laiko_tyrimas();
+
 
 static const vector<string> vardai = {
 

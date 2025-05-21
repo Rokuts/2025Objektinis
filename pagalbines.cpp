@@ -120,4 +120,62 @@ path ivesti_failo_pavadinima(const string& uzklausa, bool turi_egzistuoti) {
     return failas;
 }
 
+void laiko_tyrimas()
+{
+    path nuskaitymo_failas = ivesti_failo_pavadinima("Is kokio failo norite nuskaityti?:", true);
+    path vargsiuku_failas = ivesti_failo_pavadinima("Iveskite failo pavadinima vargsiukams:", false);
+    path kietiaku_failas = ivesti_failo_pavadinima("Iveskite failo pavadinima kietiakams:", false);
+    int pasirinkimas = gauti_skaiciu("Studentus skirstyti pagal vidurki ar mediana? (0 - vidurki, 1 - mediana)", 0, 1);
+    
+    vector<studentas> S;
+    int ilgiausias_vardas = 0, ilgiausia_pavarde = 0;       
+    
+    auto pradzia = high_resolution_clock::now();
+
+    skaitymas_is_failo_logika(S, ilgiausias_vardas, ilgiausia_pavarde, nuskaitymo_failas);
+
+    auto etapas1 = high_resolution_clock::now();
+
+    vector<apskaiciuotas_studentas> A_S;
+    A_S.reserve(S.size());
+    for (const auto &s : S)
+    {
+        A_S.push_back(apskaiciuoti_stud(s));
+    }
+
+    sort_pagal_pasirinkima(pasirinkimas + 3, A_S);
+
+    auto etapas2 = high_resolution_clock::now();
+
+    vector<const apskaiciuotas_studentas *> vargsiukai;
+    vector<const apskaiciuotas_studentas *> kietiakai;
+
+    skaidyti_studentus(A_S, vargsiukai, kietiakai, !pasirinkimas);
+
+    auto etapas3 = high_resolution_clock::now();
+
+    ofstream isvestis1(vargsiuku_failas);
+    ofstream isvestis2(kietiaku_failas);
+
+    lentele(ilgiausia_pavarde, ilgiausias_vardas, vargsiukai, isvestis1, pasirinkimas == 0) ;
+    lentele(ilgiausia_pavarde, ilgiausias_vardas, kietiakai, isvestis2, pasirinkimas == 0);
+
+    isvestis1.close();
+    isvestis2.close();
+
+    auto pabaiga = high_resolution_clock::now();
+    auto trukme = duration<double>(pabaiga - pradzia);
+
+    auto trukme1 = duration<double>(etapas1 - pradzia);
+    auto trukme2 = duration<double>(etapas2 - etapas1);
+    auto trukme3 = duration<double>(etapas3 - etapas2);
+    auto trukme4 = duration<double>(pabaiga - etapas3);
+
+    cout << "Laiko tyrimo rezultatai:" << endl;
+    cout << "1. Nuskaitymas is failo: " << trukme1.count() << " seconds" << endl;
+    cout << "2. Studentu rusiavimas: " << trukme2.count() << " seconds" << endl;
+    cout << "3. Studentu skirstymas: " << trukme3.count() << " seconds" << endl;
+    cout << "4. Studentu isvedimas i failus: " << trukme4.count() << " seconds" << endl;
+    cout << "Bendras laiko tyrimo rezultatas: " << trukme.count() << " seconds" << endl;
+}
 
