@@ -45,15 +45,8 @@ int gauti_skaiciu(string zinute, int min, int max, bool minus1){
 }
 
 void surinkti_generavimo_duomenis(path& failas, int& studentu_kiekis, int& pazymiu_kiekis, int& pavarde_w, int& vardas_w) {
-    while (true) {
-        cout << "Kaip norite pavadinti sugeneruota faila?" << endl;
-        cin >> failas;
-        if (fs_exists(failas)) {
-            cout << "Toksai failas jau egzistuoja, iveskite kita pavadinima;" << endl;
-            continue;
-        }
-        break;
-    }
+    
+    failas = ivesti_failo_pavadinima("Iveskite failo pavadinima:", false); //ivesti failo pavadinima;
 
     studentu_kiekis = gauti_skaiciu("Iveskite kiek studentu norite sugeneruoti.", 0, numeric_limits<int>::max());
     pazymiu_kiekis = gauti_skaiciu("Iveskite kiek pazymiu norite sugeneruoti.", 0, numeric_limits<int>::max());
@@ -110,4 +103,21 @@ bool paklausiam_ar_rodyti_vidurki()
     pasirinkimas = gauti_skaiciu("Norite vidurkio ar medianos? (0 - vidurkis, 1 - mediana)?", 0, 1);
     return pasirinkimas == 0;
 }
+
+path ivesti_failo_pavadinima(const string& uzklausa, bool turi_egzistuoti) {
+    path failas;
+    while (true) {
+        cout << uzklausa;
+        cin >> failas;
+        if (turi_egzistuoti && !fs_exists(failas)) {
+            cout << "Toks failas neegzistuoja, bandykite dar kartą." << endl;
+        } else if (!turi_egzistuoti && fs_exists(failas)) {
+            cout << "Toks failas jau egzistuoja, įveskite kitą pavadinimą." << endl;
+        } else {
+            break;
+        }
+    }
+    return failas;
+}
+
 

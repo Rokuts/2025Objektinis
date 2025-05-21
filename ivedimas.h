@@ -8,3 +8,4 @@ void ivedimas_ranka(vector<studentas> &S, int &ilgiausias_vardas, int &ilgiausia
 void generuojami_pazymiai(vector<studentas> &S, int &ilgiausias_vardas, int &ilgiausia_pavarde);
 void generuojama_viskas(vector<studentas> &S, int &ilgiausias_vardas, int &ilgiausia_pavarde);
 void skaitymas_is_failo(vector<studentas> &S, int &ilgiausias_vardas, int &ilgiausia_pavarde);
+void skaitymas_is_failo_logika(vector<studentas> &S, int &ilgiausias_vardas, int &ilgiausia_pavarde, path &failas);

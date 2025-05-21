@@ -47,18 +47,7 @@ void isvedimas_i_ekrana(int ilgiausia_pavarde, int ilgiausias_vardas, vector<stu
 void isvedimas_i_faila(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S){
     
     path failas;        //deklaruojame kintamaji;
-    while(true){
-       
-        cout<<"I koki faila norite isvesti duomenis?"<<endl;
-        cin>>failas;
-       
-        if(fs_exists(failas)){
-            cout<<"Toksai failas jau egzistuoja, iveskite kita pavadinima;"<<endl;
-            continue;
-        }
-        break;
-    }
-
+    failas = ivesti_failo_pavadinima("Iveskite failo pavadinima:", false); //ivesti failo pavadinima;
     
     ofstream isvestis(failas);
     vector<apskaiciuotas_studentas> A_S;
@@ -74,30 +63,9 @@ void isvedimas_i_faila(int ilgiausia_pavarde, int ilgiausias_vardas, vector<stud
 
 void skaidymas_ir_isvedimas_i_du_failus(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S)
 {
-    path failas1, failas2;
-    while(true){
-       
-        cout<<"I koki faila norite isvesti vargsiukus?"<<endl;
-        cin>>failas1;
-       
-        if(fs_exists(failas1)){
-            cout<<"Toksai failas jau egzistuoja, iveskite kita pavadinima;"<<endl;
-            continue;
-        }
-        break;
-    }
-    while(true){
-       
-        cout<<"I koki faila norite isvesti kietiakus?"<<endl;
-        cin>>failas2;
-       
-        if(fs_exists(failas2)){
-            cout<<"Toksai failas jau egzistuoja, iveskite kita pavadinima;"<<endl;
-            continue;
-        }
-        break;
-    }
-
+    path failas1 = ivesti_failo_pavadinima("Iveskite failo pavadinima vargsiukams:", false);
+    path failas2 = ivesti_failo_pavadinima("Iveskite failo pavadinima kietiakams:", false);
+    
     int pasirinkimas;
     pasirinkimas = gauti_skaiciu("Studentus skirstyti pagal vidurki ar mediana? (0 - vidurki, 1 - mediana)", 0, 1);
 

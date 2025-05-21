@@ -98,46 +98,57 @@ void generuojama_viskas(vector<studentas> &S, int &ilgiausias_vardas, int &ilgia
 }
 
 void skaitymas_is_failo(vector<studentas> &S, int &ilgiausias_vardas, int &ilgiausia_pavarde){
-    path failas;
     
-    cout<<"Is kokio failo norite isvesti duomenis?"<<endl;
-    cin>>failas;
+    path failas = ivesti_failo_pavadinima("Iveskite failo pavadinima:", true);
+    skaitymas_is_failo_logika(S, ilgiausias_vardas, ilgiausia_pavarde, failas);
     
+}
+
+void skaitymas_is_failo_logika(vector<studentas> &S, int &ilgiausias_vardas, int &ilgiausia_pavarde, path &failas)
+{
     ifstream ivestis;
 
     ivestis.exceptions(ifstream::failbit | ifstream::badbit); // Ijungia exceptions failo atidarymui
-    try {
+    try
+    {
         ivestis.open(failas);
-    } catch (const std::ifstream::failure& e) {
-        cout << "Toksai failas nerastas!!!"<< endl;
+    }
+    catch (const std::ifstream::failure &e)
+    {
+        cout << "Toksai failas nerastas!!!" << endl;
         return;
     }
     ivestis.exceptions(0); // Isjungia exceptions failo atidarymui
-    
-    string eilute;
-    getline(ivestis,eilute);
 
-    while (getline(ivestis, eilute)) {
+    string eilute;
+    getline(ivestis, eilute);
+
+    while (getline(ivestis, eilute))
+    {
         stringstream iss(eilute);
         studentas naujas;
         int paz;
-        
-        if (!(iss >> naujas.vardas >> naujas.pavarde)) {
+
+        if (!(iss >> naujas.vardas >> naujas.pavarde))
+        {
             cout << "Netinkamas duomenų formatas eilutėje: " << eilute << endl;
             continue;
         }
 
-        
-        while (iss >> paz) {
+        while (iss >> paz)
+        {
             naujas.n.push_back(paz);
         }
 
         // Bent vienas pazymys yra
-        if (!naujas.n.empty()) {
-            naujas.egzas = naujas.n.back();  // Last value is the exam
-            naujas.n.pop_back();  // Remove exam from grades
-        } else {
-            naujas.egzas = 0;  // Default exam grade if none found
+        if (!naujas.n.empty())
+        {
+            naujas.egzas = naujas.n.back(); // Last value is the exam
+            naujas.n.pop_back();            // Remove exam from grades
+        }
+        else
+        {
+            naujas.egzas = 0; // Default exam grade if none found
         }
 
         // Track longest name lengths
@@ -149,7 +160,7 @@ void skaitymas_is_failo(vector<studentas> &S, int &ilgiausias_vardas, int &ilgia
     }
 
     ivestis.close();
-    cout << "Duomenys sekmingai nuskaityti!"<<endl;;
-
-
+    cout << "Duomenys sekmingai nuskaityti!" << endl;
+    ;
 }
+
