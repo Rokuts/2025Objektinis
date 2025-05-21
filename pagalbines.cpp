@@ -66,7 +66,7 @@ void surinkti_generavimo_duomenis(path& failas, int& studentu_kiekis, int& pazym
     vardas_w += apvalintas_sk_kiekis;       //pridedame prie vardo stulpelio ilgio, kad tilptu studento numeris;
 }
 
-void generuoti_faila(const path& failas, int studentu_kiekis, int pazymiu_kiekis, int pavarde_w, int vardas_w) {
+void generuoti_faila_logika(const path& failas, int studentu_kiekis, int pazymiu_kiekis, int pavarde_w, int vardas_w) {
     ofstream isvestis(failas);
     if (!isvestis) {
         cout << "Nepavyko atidaryti failo." << endl;
@@ -91,6 +91,12 @@ void generuoti_faila(const path& failas, int studentu_kiekis, int pazymiu_kiekis
         }
         isvestis << setw(5) << pazymiai_dist(gen) << endl;  // egzamino pazymys;
     }
+}
+void generuoti_faila() {
+    path failas;
+    int studentu_kiekis, pazymiu_kiekis, pavarde_w, vardas_w;
+    surinkti_generavimo_duomenis(failas, studentu_kiekis, pazymiu_kiekis, pavarde_w, vardas_w);
+    generuoti_faila_logika(failas, studentu_kiekis, pazymiu_kiekis, pavarde_w, vardas_w);
 }
 
 bool paklausiam_ar_rodyti_vidurki()
