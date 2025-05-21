@@ -96,7 +96,12 @@ void generuoti_faila() {
     path failas;
     int studentu_kiekis, pazymiu_kiekis, pavarde_w, vardas_w;
     surinkti_generavimo_duomenis(failas, studentu_kiekis, pazymiu_kiekis, pavarde_w, vardas_w);
+
+    auto pradzia = high_resolution_clock::now();
     generuoti_faila_logika(failas, studentu_kiekis, pazymiu_kiekis, pavarde_w, vardas_w);
+    auto pabaiga = high_resolution_clock::now();
+    auto trukme = duration<double>(pabaiga - pradzia);
+    cout << "Trukme: " << trukme.count() << " sekonds" << endl;
 }
 
 bool paklausiam_ar_rodyti_vidurki()
