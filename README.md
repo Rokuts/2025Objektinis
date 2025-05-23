@@ -121,6 +121,12 @@ Nuskaitymas ir išvedimas užima daugiausia laiko, ypač su dideliais duomenų k
 
 ![alt text](image-19.png)
 
+**Lentele:**
+
+![alt text](image-20.png)
+
+
+
 
 
 **Bendra tyrimo išvada**
