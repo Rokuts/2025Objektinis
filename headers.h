@@ -48,3 +48,29 @@ inline bool fs_exists(const std::filesystem::path& p) {
 using std::ofstream;
 
 void meniu();
+
+// #define USE_VECTOR
+ #define USE_LIST
+// #define USE_DEQUE
+
+#if defined(USE_VECTOR)
+    #include <vector>
+    #define Container(tipas) std::vector<tipas>
+    #define Container_reserve(cont, size) cont.reserve(size)
+    #define Container_sort(cont, comp) std::sort(cont.begin(), cont.end(), comp)
+    #define CONTAINER_NAME "Naudoji vector"
+#elif defined(USE_LIST)
+    #include <list>
+    #define Container(tipas) std::list<tipas>
+    #define Container_reserve(cont, size) // list negali rezervuot atminties
+    #define Container_sort(cont, comp) cont.sort(comp)  // list turi savo rusiavimo funkcija
+    #define CONTAINER_NAME "Naudoji list"
+#elif defined(USE_DEQUE)
+    #include <deque>
+    #define Container(tipas) std::deque<tipas>
+    #define Container_reserve(cont, size) // deque negali rezervuot atminties
+    #define Container_sort(cont, comp) std::sort(cont.begin(), cont.end(), comp)
+    #define CONTAINER_NAME "Naudoji deque"
+#else
+    #error "Privalai apibrezti viena is situ preprocesoriaus kintamuju: USE_VECTOR, USE_LIST, USE_DEQUE"
+#endif

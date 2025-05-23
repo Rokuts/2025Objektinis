@@ -14,7 +14,7 @@ bool compareByPavarde(apskaiciuotas_studentas &a, apskaiciuotas_studentas &b) {
     return a.studentas.pavarde < b.studentas.pavarde;
 }
 
-void kaip_rusiuojam_ir_rusiuojam(vector<apskaiciuotas_studentas> &S){
+void kaip_rusiuojam_ir_rusiuojam(Container(apskaiciuotas_studentas) &S){
     int pasirinkimas;
     cout << "Pasirinkite rikiavimo buda:"<<endl;
     cout << "1 - Pagal varda"<<endl;
@@ -33,26 +33,28 @@ void kaip_rusiuojam_ir_rusiuojam(vector<apskaiciuotas_studentas> &S){
     sort_pagal_pasirinkima(pasirinkimas, S);
 }
 
-void sort_pagal_pasirinkima(int pasirinkimas, vector<apskaiciuotas_studentas> &S)
+void sort_pagal_pasirinkima(int pasirinkimas, Container(apskaiciuotas_studentas) &S)
 {
+    
     switch (pasirinkimas)
     {
     case 1:
-        sort(S.begin(), S.end(), compareByVardas);
+        Container_sort(S, compareByVardas);
         break;
     case 2:
-        sort(S.begin(), S.end(), compareByPavarde);
+        Container_sort(S, compareByPavarde);
         break;
     case 3:
-        sort(S.begin(), S.end(), compareByVidurkis);
+        Container_sort(S, compareByVidurkis);
         break;
     case 4:
-        sort(S.begin(), S.end(), compareByMediana);
+        Container_sort(S, compareByMediana);
         break;
     }
+
 }
 
-void skaidyti_studentus(vector<apskaiciuotas_studentas> &S, vector<const apskaiciuotas_studentas*> &vargšiukai, vector<const apskaiciuotas_studentas*> &kietiakiai, bool naudoti_vidurki)
+void skaidyti_studentus(Container(apskaiciuotas_studentas) &S, Container(const apskaiciuotas_studentas*) &vargšiukai, Container(const apskaiciuotas_studentas*) &kietiakiai, bool naudoti_vidurki)
 {
     for (const auto& studentas : S) {
         if (naudoti_vidurki) {

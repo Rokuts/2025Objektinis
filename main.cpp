@@ -9,7 +9,7 @@
 int main(){
     srand (time(NULL));     //padaro jog generuojami atsitiktiniai skaiciai butu skirtingi kiekviena karta;
     
-    vector<studentas> S; // visi studentai
+    Container(studentas) S; // visi studentai
 
     int ilgiausias_vardas=6, ilgiausia_pavarde=7;       // vardas 6 pavarde 7, nes jeigu butu trumpesnis nei stulpelio pavadinimas kad nesusilietu;
 

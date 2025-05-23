@@ -15,8 +15,8 @@ void lentele_universali(int ilgiausia_pavarde, int ilgiausias_vardas, const Cont
         isvestis << "-";
     isvestis << endl;
 
-    for (size_t i = 0; i < S.size(); i++) {
-        const auto& stud = get_ref(S[i]);
+    for (const auto& studentas : S) {
+        const auto& stud = get_ref(studentas);
         if (ar_rodyti_vidurki)
             isvestis << left << setw(ilgiausia_pavarde + 3) << stud.studentas.pavarde << setw(ilgiausias_vardas + 3) << stud.studentas.vardas << setw(17) << fixed << setprecision(2) << stud.vidurkis << endl;
         else
@@ -24,19 +24,19 @@ void lentele_universali(int ilgiausia_pavarde, int ilgiausias_vardas, const Cont
     }
 }
 
-void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<apskaiciuotas_studentas> &S, ostream &isvestis, bool ar_rodyti_vidurki)       //lentele kopijoms;
+void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, Container(apskaiciuotas_studentas) &S, ostream &isvestis, bool ar_rodyti_vidurki)       //lentele kopijoms;
 {
     lentele_universali(ilgiausia_pavarde, ilgiausias_vardas, S, isvestis, [](const auto& stud) { return stud; }, ar_rodyti_vidurki);
 }
 
-void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, vector<const apskaiciuotas_studentas*> &S, ostream &isvestis, bool ar_rodyti_vidurki)    //lentele rodyklėms;
+void lentele(int ilgiausia_pavarde, int ilgiausias_vardas, Container(const apskaiciuotas_studentas*) &S, ostream &isvestis, bool ar_rodyti_vidurki)    //lentele rodyklėms;
 {
     lentele_universali(ilgiausia_pavarde, ilgiausias_vardas, S, isvestis, [](const auto& stud) { return *stud; }, ar_rodyti_vidurki);
 }
 
-void isvedimas_i_ekrana(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S){
-    vector<apskaiciuotas_studentas> A_S;
-    A_S.reserve(S.size());
+void isvedimas_i_ekrana(int ilgiausia_pavarde, int ilgiausias_vardas, Container(studentas) &S){
+    Container(apskaiciuotas_studentas) A_S;
+    Container_reserve(A_S, S.size());
     for(const auto &s: S){
         A_S.push_back(apskaiciuoti_stud(s));
     }
@@ -44,14 +44,14 @@ void isvedimas_i_ekrana(int ilgiausia_pavarde, int ilgiausias_vardas, vector<stu
     lentele(ilgiausia_pavarde, ilgiausias_vardas, A_S, cout, paklausiam_ar_rodyti_vidurki());
 }
 
-void isvedimas_i_faila(int ilgiausia_pavarde, int ilgiausias_vardas, vector<studentas> &S){
+void isvedimas_i_faila(int ilgiausia_pavarde, int ilgiausias_vardas, Container(studentas) &S){
     
     path failas;        //deklaruojame kintamaji;
     failas = ivesti_failo_pavadinima("Iveskite failo pavadinima:", false); //ivesti failo pavadinima;
     
     ofstream isvestis(failas);
-    vector<apskaiciuotas_studentas> A_S;
-    A_S.reserve(S.size());
+    Container(apskaiciuotas_studentas) A_S;
+    Container_reserve(A_S, S.size());
     for(const auto &s: S){      //pereina per visus studentus s esancius studentu sarase S;
         A_S.push_back(apskaiciuoti_stud(s));
     }
@@ -61,7 +61,7 @@ void isvedimas_i_faila(int ilgiausia_pavarde, int ilgiausias_vardas, vector<stud
 
 }
 
-void skaidymas_ir_isvedimas_i_du_failus(vector<studentas> &S, int ilgiausia_pavarde, int ilgiausias_vardas)
+void skaidymas_ir_isvedimas_i_du_failus(Container(studentas) &S, int ilgiausia_pavarde, int ilgiausias_vardas)
 {
     path failas1 = ivesti_failo_pavadinima("Iveskite failo pavadinima vargsiukams:", false);
     path failas2 = ivesti_failo_pavadinima("Iveskite failo pavadinima kietiakams:", false);
@@ -72,17 +72,17 @@ void skaidymas_ir_isvedimas_i_du_failus(vector<studentas> &S, int ilgiausia_pava
     skaidymas_ir_isvedimas_i_du_failus_logika(S, ilgiausia_pavarde, ilgiausias_vardas, pasirinkimas, failas1, failas2);
 }
 
-void skaidymas_ir_isvedimas_i_du_failus_logika(vector<studentas> &S, int ilgiausia_pavarde, int ilgiausias_vardas, int pasirinkimas, path &failas1, path &failas2)
+void skaidymas_ir_isvedimas_i_du_failus_logika(Container(studentas) &S, int ilgiausia_pavarde, int ilgiausias_vardas, int pasirinkimas, path &failas1, path &failas2)
 {
-    vector<apskaiciuotas_studentas> A_S;
-    A_S.reserve(S.size());
+    Container(apskaiciuotas_studentas) A_S;
+    Container_reserve(A_S, S.size());
     for (const auto &s : S)
     {
         A_S.push_back(apskaiciuoti_stud(s));
     }
 
-    vector<const apskaiciuotas_studentas *> vargsiukai;
-    vector<const apskaiciuotas_studentas *> kietiakai;
+    Container(const apskaiciuotas_studentas*) vargsiukai;
+    Container(const apskaiciuotas_studentas*) kietiakai;
 
     skaidyti_studentus(A_S, vargsiukai, kietiakai, !pasirinkimas);
 

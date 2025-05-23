@@ -1,7 +1,7 @@
 #include "ivedimas.h"
 #include "pagalbines.h"
 
-void vardo_pavardes_ivedimas(vector<studentas> &S, studentas &s, int &ilgiausias_vardas, int &ilgiausia_pavarde)
+void vardo_pavardes_ivedimas(Container(studentas) &S, studentas &s, int &ilgiausias_vardas, int &ilgiausia_pavarde)
 {
     cout << "Iveskite " << S.size() + 1 << "-o studento varda ir pavarde arba 'NE' jeigu nebera daugiau studentu." << endl;
     cin >> s.vardas;
@@ -27,7 +27,7 @@ void vardo_pavardes_ivedimas(vector<studentas> &S, studentas &s, int &ilgiausias
     ilgiausia_pavarde = max(ilgiausia_pavarde, (int)s.pavarde.size()); // Pavardes ilgis
 }
 
-void ivedimas_ranka(vector<studentas> &S, int &ilgiausias_vardas, int &ilgiausia_pavarde)
+void ivedimas_ranka(Container(studentas) &S, int &ilgiausias_vardas, int &ilgiausia_pavarde)
 {
     while(true){
         studentas s;     //vienas studentas kuri siuo metu ivedame apsirasom;
@@ -50,7 +50,7 @@ void ivedimas_ranka(vector<studentas> &S, int &ilgiausias_vardas, int &ilgiausia
     }
 }
 
-void generuojami_pazymiai(vector<studentas> &S, int &ilgiausias_vardas, int &ilgiausia_pavarde)
+void generuojami_pazymiai(Container(studentas) &S, int &ilgiausias_vardas, int &ilgiausia_pavarde)
 {
     while(true){
         studentas s;     //vienas studentas kuri siuo metu ivedame apsirasom;
@@ -71,7 +71,7 @@ void generuojami_pazymiai(vector<studentas> &S, int &ilgiausias_vardas, int &ilg
     }
 }
 
-void generuojama_viskas(vector<studentas> &S, int &ilgiausias_vardas, int &ilgiausia_pavarde)
+void generuojama_viskas(Container(studentas) &S, int &ilgiausias_vardas, int &ilgiausia_pavarde)
 {
     int studentu_kiekis=gauti_skaiciu("Iveskite kiek studentu norite sugeneruoti.", 0, numeric_limits<int>::max());
     int pazymiu_kiekis=gauti_skaiciu("Iveskite kiek pazymiu norite sugeneruoti.", 0, numeric_limits<int>::max());
@@ -97,14 +97,14 @@ void generuojama_viskas(vector<studentas> &S, int &ilgiausias_vardas, int &ilgia
     }
 }
 
-void skaitymas_is_failo(vector<studentas> &S, int &ilgiausias_vardas, int &ilgiausia_pavarde){
+void skaitymas_is_failo(Container(studentas) &S, int &ilgiausias_vardas, int &ilgiausia_pavarde){
     
     path failas = ivesti_failo_pavadinima("Iveskite failo pavadinima:", true);
     skaitymas_is_failo_logika(S, ilgiausias_vardas, ilgiausia_pavarde, failas);
     
 }
 
-void skaitymas_is_failo_logika(vector<studentas> &S, int &ilgiausias_vardas, int &ilgiausia_pavarde, path &failas)
+void skaitymas_is_failo_logika(Container(studentas) &S, int &ilgiausias_vardas, int &ilgiausia_pavarde, path &failas)
 {
     ifstream ivestis;
 

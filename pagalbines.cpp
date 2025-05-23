@@ -127,7 +127,7 @@ void laiko_tyrimas()
     path kietiaku_failas = ivesti_failo_pavadinima("Iveskite failo pavadinima kietiakams:", false);
     int pasirinkimas = gauti_skaiciu("Studentus skirstyti pagal vidurki ar mediana? (0 - vidurki, 1 - mediana)", 0, 1);
     
-    vector<studentas> S;
+    Container(studentas) S; // visi studentai
     int ilgiausias_vardas = 0, ilgiausia_pavarde = 0;       
     
     auto pradzia = high_resolution_clock::now();
@@ -136,8 +136,8 @@ void laiko_tyrimas()
 
     auto etapas1 = high_resolution_clock::now();
 
-    vector<apskaiciuotas_studentas> A_S;
-    A_S.reserve(S.size());
+    Container(apskaiciuotas_studentas) A_S;
+    Container_reserve(A_S, S.size());
     for (const auto &s : S)
     {
         A_S.push_back(apskaiciuoti_stud(s));
@@ -147,8 +147,8 @@ void laiko_tyrimas()
 
     auto etapas2 = high_resolution_clock::now();
 
-    vector<const apskaiciuotas_studentas *> vargsiukai;
-    vector<const apskaiciuotas_studentas *> kietiakai;
+    Container(const apskaiciuotas_studentas *) vargsiukai;
+    Container(const apskaiciuotas_studentas *) kietiakai;
 
     skaidyti_studentus(A_S, vargsiukai, kietiakai, !pasirinkimas);
 
