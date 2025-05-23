@@ -93,6 +93,36 @@ Tyrimai atlikti naudojant šią aparatūrą ir programinę įrangą, kuri užtik
 **Išvada:**
 Nuskaitymas ir išvedimas užima daugiausia laiko, ypač su dideliais duomenų kiekiais. Tai rodo, kad programos sparta ribojama ne algoritmo efektyvumo, o kietojo disko įvesties/išvesties greičio. Tuo tarpu rūšiavimo ir skirstymo operacijos vykdomos itin sparčiai, todėl galima teigti, kad pati algoritmo logika yra efektyvi.
 
+**3 tyrimas. Duomenų apdorojimo našumo tyrimas su std::list ir std::deque**
+-
+**Tikslas:** Palyginti std::vector, std::list ir std::deque konteinerių našumą, atliekant duomenų nuskaitymą, rūšiavimą ir skirstymą į grupes.
+
+**Tyrimo eiga:** Išlieka identiška kaip ir antrajame tyrime – duomenys į programą įkeliami iš tų pačių failų, atliekami tie patys veiksmai ta pačia seka: duomenų nuskaitymas, studentų rūšiavimas bei skirstymas į dvi grupes.
+
+**Gauti rezultatai (std::list):**
+
+1. Studentų: 1000, pažymių: 10;
+
+![alt text](image-15.png)
+
+2. Studentų: 10000, pažymių: 10;
+
+![alt text](image-16.png)
+
+3. Studentų: 100000, pažymių: 10;
+
+![alt text](image-17.png)
+
+4. Studentų: 1000000, pažymių: 10;
+
+![alt text](image-18.png)
+
+5. Studentų: 10000000, pažymių: 10;
+
+![alt text](image-19.png)
+
+
+
 **Bendra tyrimo išvada**
 -
 Failo generavimas ir duomenų apdorojimas vyksta pakankamai sparčiai, net ir esant labai dideliam duomenų kiekiui. Pirmojo tyrimo rezultatai rodo, kad duomenų generavimo laikas auga tiesiškai, o tai parodo algoritmo efektyvumą. Antrojo tyrimo metu paaiškėjo, kad daugiausia laiko užima failų nuskaitymas ir išvedimas, ypač su milijoniniais įrašais – tai leidžia daryti išvadą, kad spartos ribojimas kyla ne dėl algoritmo, bet dėl disko (SSD) įvesties/išvesties galimybių. Tuo tarpu rūšiavimo ir skirstymo logika veikia efektyviai, net su labai dideliais duomenų kiekiais.
