@@ -152,7 +152,7 @@ Nuskaitymas ir išvedimas užima daugiausia laiko, ypač su dideliais duomenų k
 ![alt text](image-26.png)
 
 **Išvada:**
-
+Remiantis atliktais matavimais, std::deque konteineris buvo pastebimai greitesnis atliekant skirstymo operacijas, ypač esant dideliems duomenų kiekiams, o rūšiavimo ir nuskaitymo greičiai tarp std::list ir std::deque buvo panašūs.
 
 
 **Bendra tyrimo išvada**
