@@ -50,8 +50,8 @@ using std::ofstream;
 void meniu();
 
 // #define USE_VECTOR
- #define USE_LIST
-// #define USE_DEQUE
+// #define USE_LIST
+ #define USE_DEQUE
 
 #if defined(USE_VECTOR)
     #include <vector>

@@ -125,6 +125,28 @@ Nuskaitymas ir išvedimas užima daugiausia laiko, ypač su dideliais duomenų k
 
 ![alt text](image-20.png)
 
+**Gauti rezultatai (std::deque):**
+
+1. Studentų: 1000, pažymių: 10;
+
+![alt text](image-21.png)
+
+2. Studentų: 10000, pažymių: 10;
+
+![alt text](image-22.png)
+
+3. Studentų: 100000, pažymių: 10;
+
+![alt text](image-23.png)
+
+4. Studentų: 1000000, pažymių: 10;
+
+![alt text](image-24.png)
+
+5. Studentų: 10000000, pažymių: 10;
+
+![alt text](image-25.png)
+
 
 
 
