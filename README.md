@@ -26,27 +26,27 @@ Tyrimai atlikti naudojant šią aparatūrą ir programinę įrangą, kuri užtik
 
 1. Studentų: 1000, pazymių: 10;
 
-![alt text](image-3.png)
+![alt text](images/image-3.png)
 
 2. Studentų: 10000, pazymių: 10;
 
-![alt text](image-4.png)
+![alt text](images/image-4.png)
 
 3. Studentų: 100000, pazymių: 10;
 
-![alt text](image-5.png)
+![alt text](images/image-5.png)
 
 4. Studentų: 1000000, pazymių: 10;
 
-![alt text](image-6.png)
+![alt text](images/image-6.png)
 
 5. Studentų: 10000000, pazymių: 10;
 
-![alt text](image-7.png)
+![alt text](images/image-7.png)
 
 **Lentele:**
 
-![alt text](image-8.png)
+![alt text](images/image-8.png)
 
 **Išvada**: Failo generavimo trukmė didėja proporcingai duomenų kiekiui, o tai rodo gerą programos efektyvumą. Programa išlieka naši net ir su labai dideliais įrašų kiekiais – 10 milijonų įrašų sugeneruota per mažiau nei 3 minutes.
 
@@ -68,27 +68,27 @@ Tyrimai atlikti naudojant šią aparatūrą ir programinę įrangą, kuri užtik
 
 1. Studentų: 1000, pažymių: 10;
 
-![alt text](image-9.png)
+![alt text](images/image-9.png)
 
 2. Studentų: 10000, pažymių: 10;
 
-![alt text](image-10.png)
+![alt text](images/image-10.png)
 
 3. Studentų: 100000, pažymių: 10;
 
-![alt text](image-11.png)
+![alt text](images/image-11.png)
 
 4. Studentų: 1000000, pažymių: 10;
 
-![alt text](image-12.png)
+![alt text](images/image-12.png)
 
 5. Studentų: 10000000, pažymių: 10;
 
-![alt text](image-13.png)
+![alt text](images/image-13.png)
 
 **Lentele:**
 
-![alt text](image-14.png)
+![alt text](images/image-14.png)
 
 **Išvada:**
 Nuskaitymas ir išvedimas užima daugiausia laiko, ypač su dideliais duomenų kiekiais. Tai rodo, kad programos sparta ribojama ne algoritmo efektyvumo, o kietojo disko įvesties/išvesties greičio. Tuo tarpu rūšiavimo ir skirstymo operacijos vykdomos itin sparčiai, todėl galima teigti, kad pati algoritmo logika yra efektyvi.
@@ -103,53 +103,53 @@ Nuskaitymas ir išvedimas užima daugiausia laiko, ypač su dideliais duomenų k
 
 1. Studentų: 1000, pažymių: 10;
 
-![alt text](image-15.png)
+![alt text](images/image-15.png)
 
 2. Studentų: 10000, pažymių: 10;
 
-![alt text](image-16.png)
+![alt text](images/image-16.png)
 
 3. Studentų: 100000, pažymių: 10;
 
-![alt text](image-17.png)
+![alt text](images/image-17.png)
 
 4. Studentų: 1000000, pažymių: 10;
 
-![alt text](image-18.png)
+![alt text](images/image-18.png)
 
 5. Studentų: 10000000, pažymių: 10;
 
-![alt text](image-19.png)
+![alt text](images/image-19.png)
 
 **Lentele:**
 
-![alt text](image-20.png)
+![alt text](images/image-20.png)
 
 **Gauti rezultatai (std::deque):**
 
 1. Studentų: 1000, pažymių: 10;
 
-![alt text](image-21.png)
+![alt text](images/image-21.png)
 
 2. Studentų: 10000, pažymių: 10;
 
-![alt text](image-22.png)
+![alt text](images/image-22.png)
 
 3. Studentų: 100000, pažymių: 10;
 
-![alt text](image-23.png)
+![alt text](images/image-23.png)
 
 4. Studentų: 1000000, pažymių: 10;
 
-![alt text](image-24.png)
+![alt text](images/image-24.png)
 
 5. Studentų: 10000000, pažymių: 10;
 
-![alt text](image-25.png)
+![alt text](images/image-25.png)
 
 **Lentele:**
 
-![alt text](image-26.png)
+![alt text](images/image-26.png)
 
 **Išvada:**
 Remiantis atliktais matavimais, std::deque konteineris buvo pastebimai greitesnis atliekant skirstymo operacijas, ypač esant dideliems duomenų kiekiams, o rūšiavimo ir nuskaitymo greičiai tarp std::list ir std::deque buvo panašūs.
@@ -158,21 +158,21 @@ Remiantis atliktais matavimais, std::deque konteineris buvo pastebimai greitesni
 -
 **Nuskaitymas**
 
-![alt text](image-27.png)
+![alt text](images/image-27.png)
 
 **Išvada:**
 Nors teoriškai std::vector dažniausiai laikomas greičiausiu nuskaitymui, tyrimas parodė netikėtą rezultatą: su 10 milijonų elementų std::list veikė sparčiausiai. Kitais atvejais, std::vector ir std::deque demonstravo našumą.
 
 **Rušiavimas**
 
-![alt text](image-28.png)
+![alt text](images/image-28.png)
 
 **Išvada:**
 Rūšiavimui mažesniais ir vidutiniais duomenų kiekiais (iki ~100 000) efektyvesnis yra std::list. Tačiau didėjant duomenų kiekiui (virš 1 000 000) dėl geresnės atminties lokalumo ir efektyvesnių algoritmų naudojimo, std::vector tampa žymiai greitesnis.
 
 **Skirstymas**
 
-![alt text](image-29.png)
+![alt text](images/image-29.png)
 
 **Išvada:**
 Skirstymo operacijos rezultatai yra labai aiškūs: std::vector buvo greičiausias visais testuotais duomenų kiekiais, ir jo pranašumas ypač išryškėjo didėjant elementų skaičiui. Tai rodo, kad programa efektyviausiai išnaudojo std::vector savybes – tvarkingą studentų laikymą atmintyje (vieną šalia kito) ir galimybę greitai pasiekti bet kurį reikiamą studentą.
