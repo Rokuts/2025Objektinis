@@ -170,10 +170,13 @@ Nors teoriškai std::vector dažniausiai laikomas greičiausiu nuskaitymui, tyri
 **Išvada:**
 Rūšiavimui mažesniais ir vidutiniais duomenų kiekiais (iki ~100 000) efektyvesnis yra std::list. Tačiau didėjant duomenų kiekiui (virš 1 000 000) dėl geresnės atminties lokalumo ir efektyvesnių algoritmų naudojimo, std::vector tampa žymiai greitesnis.
 
+**Skirstymas**
 
-**Bendra tyrimo išvada**
--
-Failo generavimas ir duomenų apdorojimas vyksta pakankamai sparčiai, net ir esant labai dideliam duomenų kiekiui. Pirmojo tyrimo rezultatai rodo, kad duomenų generavimo laikas auga tiesiškai, o tai parodo algoritmo efektyvumą. Antrojo tyrimo metu paaiškėjo, kad daugiausia laiko užima failų nuskaitymas ir išvedimas, ypač su milijoniniais įrašais – tai leidžia daryti išvadą, kad spartos ribojimas kyla ne dėl algoritmo, bet dėl disko (SSD) įvesties/išvesties galimybių. Tuo tarpu rūšiavimo ir skirstymo logika veikia efektyviai, net su labai dideliais duomenų kiekiais.
+![alt text](image-29.png)
+
+**Išvada:**
+Skirstymo operacijos rezultatai yra labai aiškūs: std::vector buvo greičiausias visais testuotais duomenų kiekiais, ir jo pranašumas ypač išryškėjo didėjant elementų skaičiui. Tai rodo, kad programa efektyviausiai išnaudojo std::vector savybes – tvarkingą studentų laikymą atmintyje (vieną šalia kito) ir galimybę greitai pasiekti bet kurį reikiamą studentą.
+
 
 ### Autorius 
 Rokas Venckus
