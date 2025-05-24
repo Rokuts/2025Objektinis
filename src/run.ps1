@@ -3,19 +3,22 @@ Set-Location -Path "C:\Users\Roko PC\Desktop\Objektinis"
 
 # Compile the program using Clang++
 Write-Host " Compiling main.cpp..." -ForegroundColor Cyan
-& "C:\Program Files\LLVM\bin\clang++.exe" -std=c++20 -fcolor-diagnostics -fansi-escape-codes -g -o "main.exe" `
-    "main.cpp" `
-    "studentas.cpp" `
-    "apskaiciuotas_studentas.cpp" `
-    "pagalbines.cpp" `
-    "ivedimas.cpp" `
-    "rusiavimas.cpp" `
-    "isvedimas.cpp" `
-    "meniu.cpp" 
+$compilationTime = Measure-Command {
+    & "C:\Program Files\LLVM\bin\clang++.exe" -std=c++20 -fcolor-diagnostics -fansi-escape-codes -g -o "main.exe" `
+        "main.cpp" `
+        "studentas.cpp" `
+        "apskaiciuotas_studentas.cpp" `
+        "pagalbines.cpp" `
+        "ivedimas.cpp" `
+        "rusiavimas.cpp" `
+        "isvedimas.cpp" `
+        "meniu.cpp"
+}
 
 # Check if compilation succeeded
 if ($LASTEXITCODE -eq 0) {
     Write-Host " Compilation successful!" -ForegroundColor Green
+    Write-Host (" Compilation time: {0:N2} seconds" -f $compilationTime.TotalSeconds) -ForegroundColor Yellow
 
     # Run the compiled executable
     Write-Host " Running main.exe..." -ForegroundColor Cyan
