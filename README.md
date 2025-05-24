@@ -50,7 +50,7 @@ Tyrimai atlikti naudojant šią aparatūrą ir programinę įrangą, kuri užtik
 
 **Išvada**: Failo generavimo trukmė didėja proporcingai duomenų kiekiui, o tai rodo gerą programos efektyvumą. Programa išlieka naši net ir su labai dideliais įrašų kiekiais – 10 milijonų įrašų sugeneruota per mažiau nei 3 minutes.
 
-**2 tyrimas. Duomenų apdorojimo našumo tyrimas**
+**2 tyrimas. Duomenų apdorojimo našumo tyrimas (std::vector)**
 -
 
 **Tikslas:** Įvertinti programos spartą atliekant pilną duomenų apdorojimo procesą: duomenų nuskaitymą iš jau sugeneruoto failo, studentų rūšiavimą į dvi kategorijas, duomenų išvedimą į atskirus failus.
@@ -162,6 +162,13 @@ Remiantis atliktais matavimais, std::deque konteineris buvo pastebimai greitesni
 
 **Išvada:**
 Nors teoriškai std::vector dažniausiai laikomas greičiausiu nuskaitymui, tyrimas parodė netikėtą rezultatą: su 10 milijonų elementų std::list veikė sparčiausiai. Kitais atvejais, std::vector ir std::deque demonstravo našumą.
+
+**Rušiavimas**
+
+![alt text](image-28.png)
+
+**Išvada:**
+Rūšiavimui mažesniais ir vidutiniais duomenų kiekiais (iki ~100 000) efektyvesnis yra std::list. Tačiau didėjant duomenų kiekiui (virš 1 000 000) dėl geresnės atminties lokalumo ir efektyvesnių algoritmų naudojimo, std::vector tampa žymiai greitesnis.
 
 
 **Bendra tyrimo išvada**
