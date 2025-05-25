@@ -15,6 +15,7 @@ path ivesti_failo_pavadinima(const string& uzklausa, bool turi_egzistuoti);
 void generuoti_faila();
 bool paklausiam_ar_rodyti_vidurki();
 void laiko_tyrimas();
+void tyrimas_su_strategijom();
 
 
 static const vector<string> vardai = {

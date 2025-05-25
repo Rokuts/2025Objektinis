@@ -177,5 +177,46 @@ void laiko_tyrimas()
     cout << "3. Studentu skirstymas: " << trukme3.count() << " seconds" << endl;
     cout << "4. Studentu isvedimas i failus: " << trukme4.count() << " seconds" << endl;
     cout << "Bendras laiko tyrimo rezultatas: " << trukme.count() << " seconds" << endl;
+
+
 }
+
+void tyrimas_su_strategijom()
+{
+    path nuskaitymo_failas = ivesti_failo_pavadinima("Is kokio failo norite nuskaityti?:", true);
+    int pasirinkimas = gauti_skaiciu("Studentus skirstyti pagal vidurki ar mediana? (0 - vidurki, 1 - mediana)", 0, 1);
+    int strategijos_pasirinkimas = gauti_skaiciu("Taikyti pirma strategija (copy), ar antra strategija (move/erase)? (1 - pirma s., 2 - antra s.)", 1, 2);
+
+    Container(studentas) S; // visi studentai
+    int ilgiausias_vardas = 0, ilgiausia_pavarde = 0;
+
+    auto pradzia = high_resolution_clock::now();
+    skaitymas_is_failo_logika(S, ilgiausias_vardas, ilgiausia_pavarde, nuskaitymo_failas);
+    
+    Container(apskaiciuotas_studentas) A_S;
+    Container_reserve(A_S, S.size());
+    for (const auto &s : S)
+    {
+        A_S.push_back(apskaiciuoti_stud(s));
+    }
+
+    sort_pagal_pasirinkima(pasirinkimas + 3, A_S);
+
+    if(strategijos_pasirinkimas == 1) {
+        // 1 strategija;
+        Container(const apskaiciuotas_studentas *) vargsiukai;
+        Container(const apskaiciuotas_studentas *) kietiakai;
+        skaidyti_studentus(A_S, vargsiukai, kietiakai, !pasirinkimas);
+    } else {
+         // 2 strategija;
+        Container(apskaiciuotas_studentas) vargsiukai;
+        skaidyti_strategija2(A_S, vargsiukai, !pasirinkimas);
+    }
+    auto pabaiga = high_resolution_clock::now();
+    auto trukme = duration<double>(pabaiga - pradzia);
+    cout << "Laiko tyrimo rezultatas: " << trukme.count() << " seconds" << endl;
+    
+}
+
+
 

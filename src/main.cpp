@@ -16,7 +16,7 @@ int main(){
     while(true){
         meniu();
         int pasirinkimas;
-        pasirinkimas = gauti_skaiciu("Iveskite norima varianta.", 1, 9);
+        pasirinkimas = gauti_skaiciu("Iveskite norima varianta.", 1, 10);
         switch(pasirinkimas){
             case 1:
                 ivedimas_ranka(S, ilgiausias_vardas, ilgiausia_pavarde);
@@ -45,6 +45,9 @@ int main(){
             case 9:
                 laiko_tyrimas();
                 break; 
+            case 10:
+                tyrimas_su_strategijom();
+                break;
         }
 
     }
