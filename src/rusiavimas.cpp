@@ -54,12 +54,12 @@ void sort_pagal_pasirinkima(int pasirinkimas, Container(apskaiciuotas_studentas)
 
 }
 
-void skaidyti_studentus(Container(apskaiciuotas_studentas) &S, Container(const apskaiciuotas_studentas*) &vargšiukai, Container(const apskaiciuotas_studentas*) &kietiakiai, bool naudoti_vidurki)
+void skaidyti_studentus(Container(apskaiciuotas_studentas) &S, Container(const apskaiciuotas_studentas*) &vargsiukai, Container(const apskaiciuotas_studentas*) &kietiakiai, bool naudoti_vidurki)
 {
     for (const auto& studentas : S) {
         if (naudoti_vidurki) {
             if (studentas.vidurkis < 5.0) {
-                vargšiukai.push_back(&studentas);
+                vargsiukai.push_back(&studentas);
             }
             else {
                 kietiakiai.push_back(&studentas);
@@ -67,7 +67,7 @@ void skaidyti_studentus(Container(apskaiciuotas_studentas) &S, Container(const a
         }
         else {
             if (studentas.mediana < 5.0) {
-                vargšiukai.push_back(&studentas);
+                vargsiukai.push_back(&studentas);
             }
             else {
                 kietiakiai.push_back(&studentas);
@@ -76,4 +76,22 @@ void skaidyti_studentus(Container(apskaiciuotas_studentas) &S, Container(const a
     }
 }
 
+// 2 strategija: Perkėlimas ir trynimas į vieną naują konteinerį ('vargšiukai')
+void skaidyti_strategija2(Container(apskaiciuotas_studentas) &S, Container(apskaiciuotas_studentas) &vargsiukai, bool naudoti_vidurki) {
+    auto it = S.begin();
+    while (it != S.end()) {
+        bool yra_vargsiukas;
+        if (naudoti_vidurki) {
+            yra_vargsiukas = it->vidurkis < 5.0;
+        } else {
+            yra_vargsiukas = it->mediana < 5.0;
+        }
 
+        if (yra_vargsiukas) {
+            vargsiukai.push_back(move(*it));
+            it = S.erase(it);
+        } else {
+            ++it;
+        }
+    }
+}

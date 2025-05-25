@@ -38,6 +38,7 @@ using std::ceil;
 using std::log10;
 using std::chrono::high_resolution_clock;
 using std::chrono::duration;
+using std::move;
 
 
 
@@ -49,9 +50,9 @@ using std::ofstream;
 
 void meniu();
 
-// #define USE_VECTOR
+ #define USE_VECTOR
 // #define USE_LIST
- #define USE_DEQUE
+// #define USE_DEQUE
 
 #if defined(USE_VECTOR)
     #include <vector>
