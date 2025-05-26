@@ -185,7 +185,12 @@ void tyrimas_su_strategijom()
 {
     path nuskaitymo_failas = ivesti_failo_pavadinima("Is kokio failo norite nuskaityti?:", true);
     int pasirinkimas = gauti_skaiciu("Studentus skirstyti pagal vidurki ar mediana? (0 - vidurki, 1 - mediana)", 0, 1);
-    int strategijos_pasirinkimas = gauti_skaiciu("Taikyti pirma strategija (copy), ar antra strategija (move/erase)? (1 - pirma s., 2 - antra s.)", 1, 2);
+
+    #if defined(USE_VECTOR)
+        int strategijos_pasirinkimas = gauti_skaiciu("Taikyti pirma strategija (copy), antra strategija (move/erase) ar optimizuota 1 strategija? (1 - pirma s., 2 - antra s., 3 - trecia s.)", 1, 3);
+    #else
+        int strategijos_pasirinkimas = gauti_skaiciu("Taikyti pirma strategija (copy), antra strategija (move/erase)? (1 - pirma s., 2 - antra s.)", 1, 2);
+    #endif
 
     Container(studentas) S; // visi studentai
     int ilgiausias_vardas = 0, ilgiausia_pavarde = 0;
@@ -208,10 +213,15 @@ void tyrimas_su_strategijom()
         Container(const apskaiciuotas_studentas *) vargsiukai;
         Container(const apskaiciuotas_studentas *) kietiakai;
         skaidyti_studentus(A_S, vargsiukai, kietiakai, !pasirinkimas);
-    } else {
+    } else if(strategijos_pasirinkimas == 2) {
         // 2 strategija;
         Container(apskaiciuotas_studentas) vargsiukai;
         skaidyti_strategija2(A_S, vargsiukai, !pasirinkimas);
+    } else if(strategijos_pasirinkimas == 3) {
+        // 3 strategija;
+        Container(const apskaiciuotas_studentas *) vargsiukai;
+        Container(const apskaiciuotas_studentas *) kietiakai;
+        skaidyti_strategija3_vector(A_S, vargsiukai, kietiakai, !pasirinkimas);
     }
     auto pabaiga = high_resolution_clock::now();
     auto trukme = duration<double>(pabaiga - pradzia);
@@ -220,8 +230,10 @@ void tyrimas_su_strategijom()
     cout << CONTAINER_NAME <<endl;
     if(strategijos_pasirinkimas == 1) {
         cout << "Naudota 1 strategija (copy)." << endl;
-    } else {
+    } else if(strategijos_pasirinkimas == 2) {
         cout << "Naudota 2 strategija (move/erase)." << endl;
+    } else if(strategijos_pasirinkimas == 3) {
+        cout << "Naudota 3 strategija (optimized copy)." << endl;
     }
     cout << "Laiko tyrimo rezultatas: " << trukme.count() << " seconds" << endl;
     

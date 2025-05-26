@@ -54,6 +54,7 @@ void sort_pagal_pasirinkima(int pasirinkimas, Container(apskaiciuotas_studentas)
 
 }
 
+// 1 strategija: Perkėlimas į du naujus konteinerius ('vargšiukai' ir 'kietiakiai')
 void skaidyti_studentus(Container(apskaiciuotas_studentas) &S, Container(const apskaiciuotas_studentas*) &vargsiukai, Container(const apskaiciuotas_studentas*) &kietiakiai, bool naudoti_vidurki)
 {
     for (const auto& studentas : S) {
@@ -93,5 +94,29 @@ void skaidyti_strategija2(Container(apskaiciuotas_studentas) &S, Container(apska
         } else {
             ++it;
         }
+    }
+}
+
+// 3 strategija. (1 strategijos optimizavimas)
+void skaidyti_strategija3_vector(const Container(apskaiciuotas_studentas)& A_S, Container(const apskaiciuotas_studentas*)& vargsiukai, Container(const apskaiciuotas_studentas*)& kietiakiai, bool naudoti_vidurki)
+{
+    // Ši realizacija naudoja std::partition_copy efektyviai įgyvendinant 1 strategiją
+    vargsiukai.clear();
+    kietiakiai.clear();
+
+    auto kriterijus_func = [&](const apskaiciuotas_studentas& s) {
+        return naudoti_vidurki ? s.vidurkis : s.mediana;
+    };
+
+    // Naudojame partition_point, nes S jau surūšiuotas pagal kriterijų
+    auto partition_point = std::partition_point(A_S.begin(), A_S.end(), [&](const apskaiciuotas_studentas& s) {
+        return kriterijus_func(s) < 5.0;
+    });
+
+    for (auto it = A_S.begin(); it != partition_point; ++it) {
+        vargsiukai.push_back(&(*it));
+    }
+    for (auto it = partition_point; it != A_S.end(); ++it) {
+        kietiakiai.push_back(&(*it));
     }
 }
