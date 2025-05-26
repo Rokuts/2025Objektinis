@@ -251,5 +251,9 @@ Atlikus studentų skaidymo į "vargšiukus" ir "kietiakus" tyrimą su skirtingai
 Pirmojoje strategijoje, kur studentai buvo kopijuojami į du naujus konteinerius, std::list rodė geriausius greičio rezultatus su visais duomenų kiekiais. Šį pranašumą užtikrino O(1) sudėtingumo "push_back" operacija ir tai, kad šiam konteineriui nereikalingas atminties perskirstymas. Nors std::vector ir std::deque taip pat demonstravo priimtiną greitį, jų našumas šiek tiek svyravo dėl vidinių atminties valdymo ypatumų. Svarbu paminėti, kad ši strategija yra nepalanki atminties sąnaudų atžvilgiu, nes tie patys studentų duomenys saugomi keliose vietose.
 Antrojoje strategijoje, kurioje "vargšiukai" buvo perkeliami į naują konteinerį, o iš pradinio – trinami, std::list pademonstravo absoliutų pranašumą greitaveikoje. Jo O(1) sudėtingumo "erase" operacija leido išlaikyti efektyvumą net ir su 100,000 studentų. Tuo tarpu std::vector ir std::deque konteineriai, dėl O(N) sudėtingumo "erase" operacijos, tapo nepraktiškai lėti didėjant duomenų kiekiui. Visgi, ši strategija pasižymi ženkliai efektyvesniu atminties naudojimu, nes studentų duomenys nėra dubliuojami, o tiesiog perskirstomi tarp pradinio ir naujo "vargšiukų" konteinerio.
 
+**Optimizavus strategija 1 gauti rezultatai**
+
+![alt text](images/image-31.png)
+
 ### Autorius 
 Rokas Venckus
