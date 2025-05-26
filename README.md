@@ -255,5 +255,9 @@ Antrojoje strategijoje, kurioje "vargšiukai" buvo perkeliami į naują konteine
 
 ![alt text](images/image-31.png)
 
+**Išvada:**
+
+Atlikus studentų skirstymo našumo tyrimą su Vector konteineriu, paaiškėjo, kad strategija 1 (naudojant for ciklas) ir optimizuota strategija 1 (naudojant std::partition_point) veikė panašiu greičiu. Pagrindinė to priežastis – abiejose strategijose buvo operuojama su nuorodomis (arba rodyklėmis) į studentų objektus, o ne su jų kopijomis.
+
 ### Autorius 
 Rokas Venckus
