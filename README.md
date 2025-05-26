@@ -40,7 +40,13 @@ Pries ivedant failo pavadinima pries tai reikia parasyti " ..\ " pvz. ( ..\faila
 
 Prieš pasirenkant 8 punktą, įsitikinkite, kad turite jau įvestų arba nuskaitytų studentų duomenų, nes ši funkcija pati nepaprašo duomenų įvedimo.
 
-
+**Releasai**
+-
+- **v0.1:** Įvedami ir generuojami studentų duomenys (vardas, pavardė, pažymiai). Taip pat apskaičiuojamas galutinis balas naudojant vidurkį arba medianą.
+- **v0.2:** Pridėtas darbas su failais. Duomenys gali būti nuskaityti iš failo ir įrašyti į failą.
+- **v0.3:** Įtrauktas išimčių valdymas programos saugumui ir stabilumui užtikrinti.
+- **v0.4:** Pridėtas studentų skirstymas pagal galutinį balą ir atliktas pirmas ir antras tyrimas.
+- **v1.0:** programos greičio testavimas su trimis skirtingais konteineriais (vector, list, deque). Įgyvendintos 2 duomenų skirstymo strategijos ir viena jų optimizuota.
 
 **Testavimai atlikti kompiuteryje su šia konfigūracija:**
 -
