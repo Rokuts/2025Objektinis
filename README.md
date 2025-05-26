@@ -1,7 +1,49 @@
 # Objektinis programavimas
-Šis tyrimas skirtas įvertinti C++ programos veikimo spartą, kuri vykdo studentų duomenų apdorojimą: failų generavimą, nuskaitymą, studentų rūšiavimą į dvi grupes bei rezultatų išvedimą į atskirus failus.
+
+**Naudojimosi instrukcija**
+-
+Paleidus programą, jums bus pateiktas meniu su šiais pasirinkimais:
+
+1. **Įvedimas ranka**  
+   Vartotojas pats suveda studentų vardus, pavardes ir pažymius per terminalą.
+
+2. **Generuoti pažymius**  
+   Įvedus vardą ir pavardę, atsitiktinai sugeneruojami pažymiai.
+
+3. **Generuoti pažymius, vardus, pavardes**  
+   Visa informacija (vardas, pavardė, pažymiai) sugeneruojama automatiškai.
+
+4. **Duomenys iš failo**  
+   Įvedus failo pavadinimą, programa nuskaito studentų duomenis iš pateikto failo.
+
+5. **Išvesti duomenis į ekraną ir baigti darbą**  
+   Atvaizduoja studentų duomenis terminale ir užbaigia darbą.
+
+6. **Išvesti duomenis į failą ir baigti darbą**  
+   Išsaugo rezultatus į failą ir baigia programą.
+
+7. **Sugeneruoti failą su studentais**  
+   Sugeneruoja failą su pasirinktu studentų skaičiumi.
+
+8. **Suskirstyti studentus į „vargšiukus“ ir „kietiakius“**  
+   Pagal vidurkį ar medianą atskiria studentus į dvi grupes ir išveda į atskirus failus.
+
+9. **Laiko tyrimas**  
+   Paleidžia algoritmą su skirtingais duomenų dydžiais, matuoja veikimo laiką (nuskaitymą, rušiavimą, skirstymą, išvedimą, bendrą laiką).
+
+10. **Tyrimas su strategijom**  
+    Lygina 3 skirstymo strategijas, matuoja jų veikimo laiką su skirtingais duomenų kiekiais (nuskaitymą, rušiavimą ir skirstymą).
+
+Pasirinkus bet kurį punktą, programa paprašys papildomos informacijos (pvz., failo pavadinimo, strategijos numerio, rūšiavimo būdo ir t. t.), o toliau veiks automatiškai pagal pasirinktą režimą.
+
+Pries ivedant failo pavadinima pries tai reikia parasyti " ..\ " pvz. ( ..\failas.txt ).
+
+Prieš pasirenkant 8 punktą, įsitikinkite, kad turite jau įvestų arba nuskaitytų studentų duomenų, nes ši funkcija pati nepaprašo duomenų įvedimo.
+
+
 
 **Testavimai atlikti kompiuteryje su šia konfigūracija:**
+-
 - Procesorius (CPU): Intel i5-11300H (3.1 GHz, 11th Gen);
 - RAM: 8 GB
 - SSD: Intel 660p
