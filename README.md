@@ -154,7 +154,7 @@ Nuskaitymas ir išvedimas užima daugiausia laiko, ypač su dideliais duomenų k
 **Išvada:**
 Remiantis atliktais matavimais, std::deque konteineris buvo pastebimai greitesnis atliekant skirstymo operacijas, ypač esant dideliems duomenų kiekiams, o rūšiavimo ir nuskaitymo greičiai tarp std::list ir std::deque buvo panašūs.
 
-**2 ir 3 tyrimo bendra analize**
+**2 ir 3 tyrimų bendroji analizė**
 -
 **Nuskaitymas**
 
@@ -177,6 +177,31 @@ Rūšiavimui mažesniais ir vidutiniais duomenų kiekiais (iki ~100 000) efektyv
 **Išvada:**
 Skirstymo operacijos rezultatai yra labai aiškūs: std::vector buvo greičiausias visais testuotais duomenų kiekiais, ir jo pranašumas ypač išryškėjo didėjant elementų skaičiui. Tai rodo, kad programa efektyviausiai išnaudojo std::vector savybes – tvarkingą studentų laikymą atmintyje (vieną šalia kito) ir galimybę greitai pasiekti bet kurį reikiamą studentą.
 
+**4 tyrimas. Duomenų skaidymo strategijų efektyvumo tyrimas naudojant skirtingus STL konteinerius**
+-
+
+**Tikslas:**
+Ištirti ir palyginti skirtingų C++ STL konteinerių (std::vector, std::list, std::deque) našumą atliekant studentų duomenų skaidymą pagal dvi skirtingas strategijas.
+
+**Tyrimo eiga:**
+- Vartotojas įveda: failo pavadinimą, iš kurio bus nuskaitomi duomenys, pagal ką rušiuoti duomenis ir kokia strategija atlikti;
+- Laiko matavimas prasideda po vartotojo įvesties;
+- Programa nuskaito studentų įrašus į atmintį;
+- **1 strategija** - bendro studentai konteinerio skaidymas į du naujus to paties tipo konteinerius: "vargšiukų" ir "kietiakų". Tokiu būdu tas pats studentas yra dvejuose konteineriuose.
+- **2 strategija** - bendro studentų konteinerio skaidymas panaudojant tik vieną naują konteinerį: "vargšiukai". Tokiu būdu, jei studentas yra vargšiukas, jį turime įkelti į naująjį "vargšiukų" konteinerį ir ištrinti iš bendro studentai konteinerio. Po šio žingsnio studentai konteineryje liks vien tik kietiakai.
+- Laiko matavimas baigiamas užbaigus įrašymą;
+- Išvedami laiko rezultatai sekundėmis.
+
+**Gauti rezultatai:**
+
+![alt text](images/image-30.png)
+
+
+**Išvada:**
+
+Atlikus studentų skaidymo į "vargšiukus" ir "kietiakus" tyrimą su skirtingais konteinerių tipais (std::vector, std::list, std::deque) ir dviem skaidymo strategijomis, paaiškėjo esminiai našumo ir atminties naudojimo efektyvumo skirtumai, ypač parodantys std::list pranašumą greitaveikos atžvilgiu.
+Pirmojoje strategijoje, kur studentai buvo kopijuojami į du naujus konteinerius, std::list rodė geriausius greičio rezultatus su visais duomenų kiekiais. Šį pranašumą užtikrino O(1) sudėtingumo "push_back" operacija ir tai, kad šiam konteineriui nereikalingas atminties perskirstymas. Nors std::vector ir std::deque taip pat demonstravo priimtiną greitį, jų našumas šiek tiek svyravo dėl vidinių atminties valdymo ypatumų. Svarbu paminėti, kad ši strategija yra nepalanki atminties sąnaudų atžvilgiu, nes tie patys studentų duomenys saugomi keliose vietose.
+Antrojoje strategijoje, kurioje "vargšiukai" buvo perkeliami į naują konteinerį, o iš pradinio – trinami, std::list pademonstravo absoliutų pranašumą greitaveikoje. Jo O(1) sudėtingumo "erase" operacija leido išlaikyti efektyvumą net ir su 100,000 studentų. Tuo tarpu std::vector ir std::deque konteineriai, dėl O(N) sudėtingumo "erase" operacijos, tapo nepraktiškai lėti didėjant duomenų kiekiui. Visgi, ši strategija pasižymi ženkliai efektyvesniu atminties naudojimu, nes studentų duomenys nėra dubliuojami, o tiesiog perskirstomi tarp pradinio ir naujo "vargšiukų" konteinerio.
 
 ### Autorius 
 Rokas Venckus

@@ -88,7 +88,7 @@ void skaidyti_strategija2(Container(apskaiciuotas_studentas) &S, Container(apska
         }
 
         if (yra_vargsiukas) {
-            vargsiukai.push_back(move(*it));
+            vargsiukai.push_back(std::move(*it));
             it = S.erase(it);
         } else {
             ++it;

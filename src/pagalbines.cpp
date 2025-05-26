@@ -204,19 +204,25 @@ void tyrimas_su_strategijom()
 
     if(strategijos_pasirinkimas == 1) {
         // 1 strategija;
+        
         Container(const apskaiciuotas_studentas *) vargsiukai;
         Container(const apskaiciuotas_studentas *) kietiakai;
         skaidyti_studentus(A_S, vargsiukai, kietiakai, !pasirinkimas);
     } else {
-         // 2 strategija;
+        // 2 strategija;
         Container(apskaiciuotas_studentas) vargsiukai;
         skaidyti_strategija2(A_S, vargsiukai, !pasirinkimas);
     }
     auto pabaiga = high_resolution_clock::now();
     auto trukme = duration<double>(pabaiga - pradzia);
+    
+    
+    cout << CONTAINER_NAME <<endl;
+    if(strategijos_pasirinkimas == 1) {
+        cout << "Naudota 1 strategija (copy)." << endl;
+    } else {
+        cout << "Naudota 2 strategija (move/erase)." << endl;
+    }
     cout << "Laiko tyrimo rezultatas: " << trukme.count() << " seconds" << endl;
     
 }
-
-
-
