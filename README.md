@@ -36,6 +36,8 @@ Paleidus programą, jums bus pateiktas meniu su šiais pasirinkimais:
 
 Pasirinkus bet kurį punktą, programa paprašys papildomos informacijos (pvz., failo pavadinimo, strategijos numerio, rūšiavimo būdo ir t. t.), o toliau veiks automatiškai pagal pasirinktą režimą.
 
+Pries paleidžiant programa `header.h` faile pasirinkite kokį konteinerio tipą norite naudoti (nutrinkite // ): `#define USE_VECTOR`, `#define USE_LIST`, `#define USE_DEQUE`.
+
 Pries ivedant failo pavadinima pries tai reikia parasyti " ..\ " pvz. ( ..\failas.txt ).
 
 Prieš pasirenkant 8 punktą, įsitikinkite, kad turite jau įvestų arba nuskaitytų studentų duomenų, nes ši funkcija pati nepaprašo duomenų įvedimo.
